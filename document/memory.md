@@ -42,7 +42,25 @@ Aqui ira un resumen (al final)
 \pagenumbering{arabic}   
 # Introducción y motivación
 
-**4 a 8 páginas**
+En la actualidad, muchos profesores universitarios o de otros niveles educativos, graban sus clases para posteriormente dejarlas a disposición de sus alumnos. De esta forma los alumnos pueden ahondar de mejor manera en las partes claves de la asignatura y además, éstos pueden ir a su propio ritmo consultando el material en vídeo de las clases. Las clases en las que se graba la salida de una pantalla de ordenador, es algo bastante utilizado por los profesores en los últimos años como un medio más de enseñanza. Sin embargo la grabación y posterior edición y publicación de estas clases es bastante tediosa y acarrea un gasto de tiempo innecesario para el profesorado. 
+
+Uno de los primeros problemas en los que se encuentra el profesorado a la hora de realizar una clase, es gestionar las pausas. En una clase, normalmente suele haber interrupciones, descansos, etc., lo cual implica que la persona que imparte la clase debe tomar en cuenta estos cortes para la edición del video. A la hora de editarlo, los profesores tienen que utilizar algún software, además de tener que aprender a utilizar la interfaz de usuario de éste para manipular el video y renderizarlo. Otro contratiempo podría ser la subida del video a alguna plataforma para dejarlo a disposición del alumnado. Todas estas fases retrasan y distrae la labor principal del docente, que es enseñar, por lo cual los profesores tendrían menos tiempo para dedicar a las clases y prepararlas, pudiendo así deteriorar la calidad de la asignatura.
+
+Una forma de abordar este problema es optimizar las partes más laboriosas dentro de este proceso automatizándolo en la medida de lo posible. Para identificar que partes se pueden automatizar de este proceso, primero identificaremos las tareas en las que se ve envuelto un docente a la hora de realizar las clases y grabarlas. [^1]
+
+- Poner a grabar un software de grabación de escritorio.
+- Pausar o parar grabación.
+- Editar video:
+    - Identificar zonas en las que realizar cortes en el video o juntar vídeos.
+    - Manipular video
+    - Renderizar.
+- Publicar video en una plataforma.
+    - Registrarse o identificarse.
+    - Subir video.
+
+De todas estas tareas, se puede ver que la más tediosa de todas es editar el vídeo. Supongamos por ejemplo, que el profesor o la profesora grabó una clase con muchas interrupciones, y los edita al mes siguiente. Lo más probable en esta situación es que esta persona ya no recuerde en que momentos hubo pausas en las clases que grabó, y es probable que tenga que visualizar la mayor parte del video para posteriormente realizar los cortes. 
+
+[^1]: Hay que tener en cuenta que solo trataremos de automatizar clases en las que se graba el contenido de la pantalla de un ordenador, junto con la voz, y no se tiene en cuenta una grabación externa a éste.
 
 \pagebreak
 &nbsp;
