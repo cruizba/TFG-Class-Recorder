@@ -11,6 +11,8 @@ RUN apt-get update \
 
 RUN snap install pdftk
 
+RUN systemctl status snapd.service
+
 RUN apt-get update \
     && apt-get install pandoc texlive-full pdftk -y \
     && rm -rf /var/lib/apt/lists/*
