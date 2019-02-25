@@ -6,11 +6,13 @@ ENV NODE_VERSION=11 \
 
 # Install curl
 RUN apt-get update \
-    && apt-get install curl -y \
+    && apt-get install curl snapd -y \
     && rm -rf /var/lib/apt/list/*
 
+RUN snap install pdftk
+
 RUN apt-get update \
-    && apt-get install pandoc texlive-full -y \
+    && apt-get install pandoc texlive-full pdftk -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install npm and node
