@@ -9,9 +9,9 @@ RUN apt-get update \
     && apt-get install curl snapd -y \
     && rm -rf /var/lib/apt/list/*
 
-RUN snap install pdftk
-
 RUN systemctl status snapd.service
+
+RUN snap install pdftk
 
 RUN apt-get update \
     && apt-get install pandoc texlive-full pdftk -y \
