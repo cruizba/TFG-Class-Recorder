@@ -1,4 +1,4 @@
-FROM snapcore/snapcraft
+FROM ubuntu
 
 # Versions
 ENV NODE_VERSION=11 \
@@ -9,10 +9,12 @@ RUN apt-get update \
     && apt-get install curl -y \
     && rm -rf /var/lib/apt/list/*
 
-RUN snap install pdftk
+# Install pdftk
+RUN chmod 755 pdftk_installer.sh \
+    && ./pdftk_installer.sh
 
 RUN apt-get update \
-    && apt-get install pandoc texlive-full pdftk -y \
+    && apt-get install pandoc texlive-full -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install npm and node
