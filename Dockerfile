@@ -6,12 +6,19 @@ ENV NODE_VERSION=11 \
 
 # Install curl
 RUN apt-get update \
-    && apt-get install curl -y \
+    && apt-get install curl wget sed -y \
     && rm -rf /var/lib/apt/list/*
 
+
+COPY pdftk_installer.sh .
+
 # Install pdftk
-RUN chmod 755 pdftk_installer.sh \
-    && ./pdftk_installer.sh
+RUN sed -i 's/\r//g' pdftk_installer.sh \ 
+    && chmod 755 pdftk_installer.sh
+
+RUN ls -l
+
+RUN bash pdftk_installer.sh
 
 RUN apt-get update \
     && apt-get install pandoc texlive-full -y \

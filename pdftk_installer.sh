@@ -1,11 +1,4 @@
 #!/bin/bash
-#
-# author: abu
-# date:   May 12 2018
-# description: bash script to install pdftk on Ubuntu 18.04 for amd64 machines
-##############################################################################
-#
-# change to /tmp directory
 cd /tmp
 # download packages
 wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-6/libgcj17_6.4.0-8ubuntu1_amd64.deb \
