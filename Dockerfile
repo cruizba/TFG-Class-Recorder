@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM snapcore/snapcraft
 
 # Versions
 ENV NODE_VERSION=11 \
@@ -6,10 +6,8 @@ ENV NODE_VERSION=11 \
 
 # Install curl
 RUN apt-get update \
-    && apt-get install curl snapd -y \
+    && apt-get install curl -y \
     && rm -rf /var/lib/apt/list/*
-
-RUN systemctl status snapd.service
 
 RUN snap install pdftk
 
