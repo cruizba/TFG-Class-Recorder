@@ -2,7 +2,8 @@ FROM ubuntu
 
 # Versions
 ENV NODE_VERSION=11 \
-    NPM_VERSION=6.4.1
+    NPM_VERSION=6.4.1 \
+    DEBIAN_FRONTEND=noninteractive
 
 # Install curl
 RUN apt-get update \
