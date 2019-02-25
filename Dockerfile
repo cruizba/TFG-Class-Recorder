@@ -7,7 +7,7 @@ ENV NODE_VERSION=11 \
 
 # Install curl
 RUN apt-get update \
-    && apt-get install curl wget sed -y \
+    && apt-get install curl wget sed gnupg -y \
     && rm -rf /var/lib/apt/list/*
 
 
