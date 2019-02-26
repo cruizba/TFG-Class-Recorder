@@ -33,6 +33,11 @@ RUN apt-get update \
     && npm install -g npm@"$NPM_VERSION" \
     && rm -rf /var/lib/apt/lists/*
 
+# Install citeproc
+RUN apt-get update \
+    && apt-get install pandoc-citeproc -y \
+    && rm -rf /var/lib/apt/lists/*
+
 # Create user
 RUN useradd -ms /bin/bash userdocker
 
