@@ -3,6 +3,7 @@ FROM ubuntu
 # Versions
 ENV NODE_VERSION=11 \
     NPM_VERSION=6.4.1 \
+    PANDOC_VERSION=2.6-1 \
     DEBIAN_FRONTEND=noninteractive
 
 # Install curl
@@ -34,9 +35,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install citeproc
-RUN apt-get update \
-    && apt-get install pandoc-citeproc -y \
-    && rm -rf /var/lib/apt/lists/*
+# latest version from github
+RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-"${PANDOC_VERSION}"-amd64.deb \
+    && dpkg -i pandoc-2.6-1-amd64.deb \
+    && rm pandoc-2.6-1-amd64.deb
 
 # Create user
 RUN useradd -ms /bin/bash userdocker
