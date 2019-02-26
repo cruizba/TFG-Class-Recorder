@@ -1,9 +1,10 @@
-FROM ubuntu
+FROM ubuntu:16.04
 
 # Versions
 ENV NODE_VERSION=11 \
     NPM_VERSION=6.4.1 \
     PANDOC_VERSION=2.6-1 \
+    PDFTK_VERSION=2.02 \
     DEBIAN_FRONTEND=noninteractive
 
 # Install curl
@@ -11,16 +12,18 @@ RUN apt-get update \
     && apt-get install curl wget sed gnupg -y \
     && rm -rf /var/lib/apt/list/*
 
-
-COPY pdftk_installer.sh .
-
 # Install pdftk
-RUN sed -i 's/\r//g' pdftk_installer.sh \ 
-    && chmod 755 pdftk_installer.sh
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends unzip build-essential gcj-jdk && \
+    apt-get clean
 
-RUN ls -l
-
-RUN bash pdftk_installer.sh
+ADD https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk-${PDFTK_VERSION}-src.zip /tmp/
+RUN unzip /tmp/pdftk-${PDFTK_VERSION}-src.zip -d /tmp && \
+    sed -i 's/VERSUFF=-4.6/VERSUFF=-5/g' /tmp/pdftk-${PDFTK_VERSION}-dist/pdftk/Makefile.Debian && \
+    cd /tmp/pdftk-${PDFTK_VERSION}-dist/pdftk && \
+    make -f Makefile.Debian && \
+    make -f Makefile.Debian install && \
+    rm -Rf /tmp/pdftk-*
 
 RUN apt-get update \
     && apt-get install pandoc texlive-full -y \
