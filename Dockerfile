@@ -26,7 +26,7 @@ RUN unzip /tmp/pdftk-${PDFTK_VERSION}-src.zip -d /tmp && \
     rm -Rf /tmp/pdftk-*
 
 RUN apt-get update \
-    && apt-get install pandoc texlive-full -y \
+    && apt-get install texlive-full -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install npm and node
