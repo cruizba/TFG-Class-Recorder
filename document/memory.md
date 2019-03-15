@@ -42,13 +42,18 @@ Aqui ira un resumen (al final)
 \pagenumbering{arabic}   
 # Introducción
 
-En la actualidad, muchos profesores universitarios o de otros niveles educativos, graban sus clases para posteriormente dejarlas a disposición de sus alumnos. De esta forma los alumnos pueden ahondar de mejor manera en las partes claves de la asignatura y además, estos pueden ir a su propio ritmo consultando el material en vídeo de las clases. Grabar la pantalla del ordenador en las clases es algo bastante utilizado por los profesores en los últimos años como un medio más de enseñanza. Sin embargo la grabación y posterior edición y publicación de estas clases es bastante tediosa y acarrea un gasto de tiempo innecesario para el profesorado. 
+En la actualidad en muchos centros educativos, universidades y escuelas, los profesores utilizan ordenadores para hacer sus presentaciones en clase, incluso centrándose unicamente en el contenido que aparece por la pantalla o el proyector como es el caso de los profesores dentro del área de la informática.
 
-A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes se encuentran a la hora de grabar sus clases, estudiaremos como mejorar las partes que mayor esfuerzo conllevan y a que usuarios esta enfocada y se explicará a grandes rasgos el software presentado para resolver este problema.
+Una de las ventajas que presenta realizar las presentaciones y las clases con un ordenador, es poder grabar dichas clases y después dejarlas a disposición de los alumnos, para que cada uno pueda volver a ver las clases a su ritmo, pudiendo revisar todo el contenido de la misma. Además, grabar las diapositivas y el contenido realizado en el ordenador, es muy útil para la realización de cursos online, permitiendo incluso la ausencia presencial de los mismos, pudiendo llevar el conocimiento mucho más allá del lugar en el que se imparte.
+
+Sin embargo, grabar las clases, editarlas y ponerlas a disposición de los alumnos no es una tarea trivial. Requiere un tiempo que los profesores no pueden utilizar para la preparación del contenido de sus clases, pudiendo incluso influenciar en la calidad de las mismas. Para solventar este tiempo dedicado a la grabación, edición y publicación de las clases surge *Class Recorder*. 
+
+A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes y profesores se encuentran a la hora de grabar sus clases, estudiaremos como mejorar las partes que mayor esfuerzo conllevan y a que usuarios esta enfocada está aplicación y se explicará a grandes rasgos el software presentado.
 
 ## Contexto y estudio del problema
+<!--
 
-Uno de los primeros percanzes en los que se encuentran los profesores a la hora de realizar una clase, es gestionar las pausas durante la grabación. En una clase, normalmente suele haber interrupciones, descansos, etc., lo cual implica que la persona que imparte la clase debe tomar en cuenta estos cortes para la edición del video. A la hora de editarlo, los profesores tienen que utilizar algún software, además de tener que aprender a utilizar la interfaz de usuario de este para manipular el video y renderizarlo. Otro contratiempo podría ser la subida del video a alguna plataforma para dejarlo a disposición del alumnado. Todas estas fases retrasan y distraen la labor principal del docente, que es enseñar, por lo que los profesores tendrían menos tiempo para dedicar a las clases y prepararlas, pudiendo así deteriorar la calidad de la asignatura.
+Uno de los primeros percances en los que se encuentran los profesores a la hora de realizar una clase, es gestionar las pausas durante la grabación. En una clase, normalmente suele haber interrupciones, descansos, etc., lo cual implica que la persona que imparte la clase debe tomar en cuenta estos cortes para la edición del video. A la hora de editarlo, los profesores tienen que utilizar algún software, además de tener que aprender a utilizar la interfaz de usuario de este para manipular el video y renderizarlo. Otro contratiempo podría ser la subida del video a alguna plataforma para dejarlo a disposición del alumnado. Todas estas fases retrasan y distraen la labor principal del docente, que es enseñar, por lo que los profesores tendrían menos tiempo para dedicar a las clases y prepararlas, pudiendo así deteriorar la calidad de la asignatura.
 
 Una forma de abordar este problema es optimizar las partes más laboriosas dentro de este proceso automatizándolo en la medida de lo posible. Para identificar que partes se pueden automatizar de este proceso, primero identificaremos las tareas en las que se ve envuelto un docente a la hora de realizar las clases y grabarlas. [^1]
 
@@ -70,16 +75,19 @@ A todo esto hay también que añadir que durante todo este proceso de grabación
 
 [^1]: Hay que tener en cuenta que solo trataremos de automatizar clases en las que se graba el contenido de la pantalla de un ordenador, junto con la voz, y no se tiene en cuenta una grabación externa a este.
 
-## Motivación y solución propuesta
+ -->
 
+## Motivación y solución propuesta
+<!-- 
 Una de las motivaciones de este proyecto, es unificar todo este proceso en un sólo software capaz de realizar todas las tareas antes mencionadas, combinado con una interfaz de usuario minimalista, y fácil de usar que permita a los profesores utilizarlo sin necesidad de tener que experimentar con cientos de miles de opciones diferentes y ofrecer una única herramienta. Que los profesores tengan un software enfocado solo a la grabación de las clases que les facilite las tareas antes mencionadas de mayor esfuerzo es lo que trataremos de resolver con el software presentado. Minimizar en todo lo posible el tiempo dedicado a la grabación y despreocupar al docente de la tarea de grabar su clases.
 
 Para resolver en cuestión de tiempo este problema, debemos responder a las siguientes preguntas:
 
 - ¿Cómo podemos automatizar la edición?
 - ¿Como podemos grabar el audio de las clases con calidad?
+- ¿Podemos juntar todo en una sola herramienta?
 
-
+-->
 
 \pagebreak
 &nbsp;
@@ -113,7 +121,7 @@ Para resolver en cuestión de tiempo este problema, debemos responder a las sigu
 
 ### Requisitos funcionales
 
-Los requisitos funcionales consisten en una serie de comportamientos o módulos que deben ser integrados en el sistema de simulación y son los siguientes:
+Las historias de usuarios que consisten en una serie de comportamientos o módulos que deben ser integrados en el sistema de simulación y son los siguientes:
 
 **Requisito funcional 1**
 
