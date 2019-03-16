@@ -44,40 +44,49 @@ Aqui ira un resumen (al final)
 
 En la actualidad en muchos centros educativos, universidades y escuelas, los profesores utilizan ordenadores para hacer sus presentaciones en clase, incluso centrándose unicamente en el contenido que aparece por la pantalla o el proyector como es el caso de los profesores dentro del área de la informática.
 
-Una de las ventajas que presenta realizar las presentaciones y las clases con un ordenador, es poder grabar dichas clases y después dejarlas a disposición de los alumnos, para que cada uno pueda volver a ver las clases a su ritmo, pudiendo revisar todo el contenido de la misma. Además, grabar las diapositivas y el contenido realizado en el ordenador, es muy útil para la realización de cursos online, permitiendo incluso la ausencia presencial de los mismos, pudiendo llevar el conocimiento mucho más allá del lugar en el que se imparte.
+Una de las ventajas que presenta realizar las presentaciones y las clases con un ordenador, es poder grabar dichas clases y después dejarlas a disposición de los alumnos, para que cada uno pueda volver a ver las clases a su ritmo, pudiendo revisar todo el contenido de la misma. Además, grabar las diapositivas y el contenido realizado en el ordenador, es muy útil para la realización de cursos online, permitiendo incluso la ausencia presencial de los alumnos, pudiendo llevar el conocimiento mucho más allá del lugar en el que se imparte.
 
 Sin embargo, grabar las clases, editarlas y ponerlas a disposición de los alumnos no es una tarea trivial. Requiere un tiempo que los profesores no pueden utilizar para la preparación del contenido de sus clases, pudiendo incluso influenciar en la calidad de las mismas. Para solventar este tiempo dedicado a la grabación, edición y publicación de las clases surge *Class Recorder*. 
 
-A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes y profesores se encuentran a la hora de grabar sus clases, estudiaremos como mejorar las partes que mayor esfuerzo conllevan y a que usuarios esta enfocada está aplicación y se explicará a grandes rasgos el software presentado.
+A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes y profesores se encuentran a la hora de grabar sus clases, estudiaremos como mejorar las partes que mayor esfuerzo conllevan, a que usuarios esta enfocada está aplicación y se explicará a grandes rasgos el software presentado.
 
 ## Contexto y estudio del problema
-<!--
 
-Uno de los primeros percances en los que se encuentran los profesores a la hora de realizar una clase, es gestionar las pausas durante la grabación. En una clase, normalmente suele haber interrupciones, descansos, etc., lo cual implica que la persona que imparte la clase debe tomar en cuenta estos cortes para la edición del video. A la hora de editarlo, los profesores tienen que utilizar algún software, además de tener que aprender a utilizar la interfaz de usuario de este para manipular el video y renderizarlo. Otro contratiempo podría ser la subida del video a alguna plataforma para dejarlo a disposición del alumnado. Todas estas fases retrasan y distraen la labor principal del docente, que es enseñar, por lo que los profesores tendrían menos tiempo para dedicar a las clases y prepararlas, pudiendo así deteriorar la calidad de la asignatura.
+Para entrar un poco en el contexto de grabar las clases con un ordenador, se va a exponer a continuación los problemas más comunes. 
 
-Una forma de abordar este problema es optimizar las partes más laboriosas dentro de este proceso automatizándolo en la medida de lo posible. Para identificar que partes se pueden automatizar de este proceso, primero identificaremos las tareas en las que se ve envuelto un docente a la hora de realizar las clases y grabarlas. [^1]
+Lo más importante al principio es realizar las diapositivas (o en caso de clases de programación, desarrollo e informática en general, preparar además los ejemplos). Esto supone un tiempo y esfuerzo necesario para la calidad de las clases. Cuánto más tiempo disponga el profesor para preparar sus clases, es probable que sean de mejor calidad. 
 
-- Poner a grabar un software de grabación de escritorio.
-- Pausar o parar grabación.
-- Editar video:
-    - Identificar zonas en las que realizar cortes en el video o juntar vídeos.
-    - Manipular video
-    - Renderizar.
-- Publicar video en una plataforma.
-    - Registrarse o identificarse.
-    - Subir video.
+El problema que surge a la hora de grabarlas, son en su mayor parte, debido a la multitud de herramientas de las que se disponen para grabar el contenido, y la distracción que provoca en el profesor al utilizarlas, reduciendo el tiempo y la calidad de la lección. A esto hay que añadir el aprendizaje de dichas herramientas, las cuales suelen ser bastante complejas por lo general, con información excesiva acerca de los formatos de los videos, configuraciones de video y audio, etc.
 
-De todas estas tareas, se puede ver que la que más tiempo consume de todas es editar el vídeo. Supongamos por ejemplo, que el profesor o la profesora grabó una clase con muchas interrupciones, y los edita al mes siguiente. Lo más probable en esta situación es que esta persona ya no recuerde en que momentos hubo pausas en las clases que grabó, y es probable que tenga que visualizar la mayor parte del video para posteriormente realizar los cortes. Por otro lado gestionar los vídeos y subirlos, es otra tarea que requiere un esfuerzo adicional.
+Otro aspecto que puede ser problemático, es la grabación del audio de las clases. En su mayor parte, las clases se imparten de pie, leyendo y explicando diapositivas, por lo que en algunas ocasiones el micrófono del ordenador se encuentra lejos de la fuente de voz, por lo que la calidad del audio puede empeorar. Esto se suele solventar grabando el audio con un dispositivo móvil y después uniendo video y audio, pero esto solo añadiría aún más carga de trabajo para producir el video final.
 
-Pero no solo el tiempo es un problema, ¿que hay del audio grabado para las clases?. La mayoría de los profesores al presentar, se levantan y explican, por lo que el micrófono del ordenador queda bastante alejado de la fuente de voz, empeorando la calidad de las clases grabadas. Una posible solución a esto, sería grabar el sonido de las clases con el móvil, pero esto implica que el profesor también tendría que juntar el audio de dicho teléfono con el video grabado, por lo que empeoraría aun más la situación en lo que a edición de video se refiere.
+A esto hay que sumarle la edición de video, desechar del video grabado las partes irrelevantes, los descansos o interrupciones, etc. El profesor debe entonces aprender y elegir probablemente otra herramienta con la que editar dicho video, contando con multitud de software (en muchas ocasiones de pago), que se utilizan de forma diferente, desviando el tema principal, que es enseñar. Además los videos tras editarlos, hay que renderizarlos y subirlos.
 
-A todo esto hay también que añadir que durante todo este proceso de grabación, edición y publicación se está utilizando para cada tarea un software diferente, por lo que el docente debe saber manejarse correctamente en todos ellos. Un usuario de Windows, por ejemplo, tendría que instalar un capturador de vídeo y audio, un editor de video y posteriormente quizás utilizará una aplicación o plataforma web para compartirlo con sus alumnos.  Incluso muchos de estos programas no son triviales de utilizar y muchos de ellos son propietarios y de pago, dificultando aún más dicha tarea.
+Al final nos encontramos con un proceso bastante tedioso, que lleva un aprendizaje detrás para el profesor bastante costoso, que le separa de su objetivo final. En la Figura \ref{proc_comun} se puede observar el proceso común y las opciones que tiene un profesor para grabar sus clases.
 
-[^1]: Hay que tener en cuenta que solo trataremos de automatizar clases en las que se graba el contenido de la pantalla de un ordenador, junto con la voz, y no se tiene en cuenta una grabación externa a este.
+![Proceso común de grabación de clases por ordenador](images/test.png){#proc_comun}
 
- -->
+## Motivaciones.
 
-## Motivación y solución propuesta
+La principal motivación es reducir toda esa carga de trabajo adicional, y optimizar al máximo el tiempo necesario para grabar las clases, mejorando además los problemas mencionados en el apartado anterior. 
+
+Al final nos encontramos con que tenemos que reducir el consumo de tiempo y mejorar las siguientes tareas:
+
+\pagebreak
+
+- Aprendizaje de herramientas para grabación.
+- Grabación de audio por separado
+- Identificar zonas en las que realizar cortes en el video o juntar vídeos.
+- Renderización y subida a una plataforma.
+
+
+Hay que tener en cuenta que muchas de las herramientas que se utilizan comúnmente para la edición de videos y grabación de escritorio, son herramientas que abarcan muchos casos de uso, y que tienen funcionalidad extra, que el profesor no necesita conocer, y que pueden confundirle a la hora de realizar sus videos.
+
+Una posible solución es la unificación del flujo de trabajo, utilizando un software unicamente para la realización de las grabaciones y simplificando la edición y grabación de video únicamente a lo necesario por un profesor para grabar sus clases. Si observamos detenidamente la Figura \ref{proc_comun}, el proceso de grabación no consiste en la realización de un conjunto de pasos definidos. El profesor debe elegir el software que quiere utilizar, aprenderlo, pero no hay un camino claro para alcanzar el objetivo concreto. La motivación principal de *Class Recorder* es acabar con esta fragmentación y unificar todo el proceso en uno solo, para facilitar todo el trabajo y crear una sola plataforma con la que poder grabar, editar y subir videos, restando el tiempo innecesario de edición y grabación proporcionando herramientas fáciles de usar y enfocadas a la tarea en cuestión.
+
+## Solución propuesta
+
+![Flujo de trabajo con Class Recorder](images/test.png){#proc_crecorder}
 <!-- 
 Una de las motivaciones de este proyecto, es unificar todo este proceso en un sólo software capaz de realizar todas las tareas antes mencionadas, combinado con una interfaz de usuario minimalista, y fácil de usar que permita a los profesores utilizarlo sin necesidad de tener que experimentar con cientos de miles de opciones diferentes y ofrecer una única herramienta. Que los profesores tengan un software enfocado solo a la grabación de las clases que les facilite las tareas antes mencionadas de mayor esfuerzo es lo que trataremos de resolver con el software presentado. Minimizar en todo lo posible el tiempo dedicado a la grabación y despreocupar al docente de la tarea de grabar su clases.
 
