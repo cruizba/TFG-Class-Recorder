@@ -1,5 +1,7 @@
 FROM gitpod/workspace-full
 
+USER root
+
 ########### Versions ############
 ENV NODE_VERSION=11 \
     NPM_VERSION=6.4.1 \
@@ -40,19 +42,3 @@ RUN apt-get update \
 RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-"${PANDOC_VERSION}"-amd64.deb \
     && dpkg -i pandoc-2.6-1-amd64.deb \
     && rm pandoc-2.6-1-amd64.deb
-
-# Create user
-RUN useradd -ms /bin/bash userdocker
-
-RUN mkdir -p home/userdocker/tfg
-
-ENV APP_DIR home/userdocker/tfg
-
-RUN chown -R userdocker /home/userdocker
-
-# Change user to userdocker
-USER userdocker
-
-WORKDIR $APP_DIR
-
-ENTRYPOINT [ "node", "server.js" ]
