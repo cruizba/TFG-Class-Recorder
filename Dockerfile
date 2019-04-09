@@ -15,7 +15,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/list/*
 
 ########### Install pdftk #############
-ADD pdftk-apt-sources.txt
+ADD pdftk-apt-sources.txt .
 
 # Add temporary apt sources to install pdftk
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.backup \
