@@ -42,3 +42,5 @@ RUN apt-get update \
 RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-"${PANDOC_VERSION}"-amd64.deb \
     && dpkg -i pandoc-2.6-1-amd64.deb \
     && rm pandoc-2.6-1-amd64.deb
+    
+RUN chown -R gitpod /workspace/TFG-Class-Recorder
