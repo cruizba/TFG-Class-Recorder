@@ -1,3 +1,5 @@
 image: cruizba/markdown-to-latex-book
+tasks:
+  - command: "npm install"
 ports:
   - port: 3010
