@@ -22,7 +22,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.backup \
     && cat /etc/apt/sources.list.backup pdftk-apt-sources.txt > /etc/apt/sources.list
 
 RUN apt update \
-    && apt install pdftk \
+    && apt install pdftk -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Remove temporary apt sources
