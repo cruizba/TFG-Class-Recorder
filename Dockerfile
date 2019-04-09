@@ -43,4 +43,4 @@ RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-"${PANDOC_VE
     && dpkg -i pandoc-2.6-1-amd64.deb \
     && rm pandoc-2.6-1-amd64.deb
     
-WORKDIR /home/gitpod 
+RUN chown -R gitpod /home/gitpod/.npm
