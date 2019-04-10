@@ -28,7 +28,12 @@ RUN apt update \
 # Remove temporary apt sources
 RUN rm /etc/apt/sources.list \
     && mv /etc/apt/sources.list.backup /etc/apt/sources.list 
-    
+
+# Install latex
+RUN apt-get update \
+    && apt-get install texlive-full -y \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install npm and node
 ####### Node, npm
 RUN apt-get update \
@@ -37,7 +42,7 @@ RUN apt-get update \
     && npm install -g npm@"$NPM_VERSION" \
     && rm -rf /var/lib/apt/lists/*
 
-# Install citeproc
+# Install citeproc and pandoc
 # latest version from github
 RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-"${PANDOC_VERSION}"-amd64.deb \
     && dpkg -i pandoc-2.6-1-amd64.deb \
