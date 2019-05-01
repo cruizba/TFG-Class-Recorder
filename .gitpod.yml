@@ -1,4 +1,4 @@
-image: cruizba/markdown-to-latex-book
+image: cruizba/gitpod-tfg-crecorder
 tasks:
   - command: "npm install"
 ports:
