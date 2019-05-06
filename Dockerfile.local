@@ -60,4 +60,4 @@ USER userdocker
 
 WORKDIR $APP_DIR
 
-ENTRYPOINT [ "node", "server.js" ]
+ENTRYPOINT [ "bash" ]
