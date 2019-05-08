@@ -135,24 +135,36 @@ En muchas ocasiones la clase no se puede impartir sentado, es por eso que *Class
 3. Iniciar la App de *Class Recorder* y introducir nuestra IP local.
 4. Comenzar a grabar.
 
-Así de sencillo, y la app disponde de los mismos controles que la aplicación de escritorio. En la siguiente figura \ref{flujo_trabajo_2} se puede ver más en detalle.
+Así de sencillo, y la app disponde de los mismos controles que la aplicación de escritorio. En la siguiente Figura \ref{flujo_trabajo_2} se puede ver más en detalle.
 
 ![Flujo de trabajo con Class Recorder](images/test.png){#flujo_trabajo_2}
 
-
-\pagebreak
-&nbsp;
-\newpage
-
-# Objetivos
-
-\pagebreak
-&nbsp;
-\newpage
-
 # Tecnologías herramientas y metodologías
 
-**10 a 15 páginas**
+<!-- TODO -->
+Breve introducción a la sección.
+
+## Proceso de desarrollo
+
+El proyecto ha sido únicamente desarrollado por mi, unido a la continua retroalimentación de mi tutor. Se podría considerar que se ha utilizado la metodología de Scrum[@bib1], pero para los más puristas en cuanto a metodologías software no sería considerado como tal, ya que no se ha contado con el numero de personas suficientes para poder aplicar Scrum de la manera más eficiente posible, teniendo como Product Owner a mi tutor y yo mismo como Scrum Master y equipo de desarrollo. La propia guía de Scrum especifica que hay 3 roles diferentes: Product Owner, Equipo de desarrollo, y un Scrum Master. Además se dicta que el mínimo de personas necesarias para aplicar Scrum de la manera más eficaz es de 3 personas. Equipos de menos de 3 personas reduce la interacción y resulta en ganancias de productividad pequeñas. Sin embargo, sí que se han tenido reuniones pasadas ciertas semanas en el equipo para ver cómo ha ido avanzando el proyecto, retrospectivas, prototipos, integración, pruebas, etc. No obstante, como no aplicamos todas las reglas de Scrum, consideraremos que el desarrollo se está realizando con una metodología iterativa e incremental ágil tal y como se muestra en la Figura \ref{fig:2}.
+
+>>
+
+![Ciclo iterativo e incremental](images/incremental_and_iterative.jpg){#fig:2 .class width=10cm}
+
+En este modelo, primero se realiza un análisis de los requisitos que se van a necesitar para cada iteración. Después del desarrollo de estos, se hacen pruebas y para finalizar se integra con el resto del sistema.
+
+Cada 2 semanas se ha realizado una iteración donde se realizaron todos los pasos comentados anteriormente, donde todo se decidió qué historias de usuario eran más críticos e importantes y los bugs que se detectaron para resolverlos. En base a estas decisiones y utilizando herramientas online como Trello[^3], se gestionó que tareas debían realizarse en cada iteración.
+
+[^3]: Es un tablero online donde se pueden crear, asignar y clasificar tareas, de tal modo que todo el equipo tiene una visión global del estado actual de desarrollo que se está creando.
+
+Un desarrollo iterativo e incremental ofrece varias ventajas con respecto a otras metodologías como puede ser el desarrollo en cascada. Una de las ventajas que ofrece es la entrega de software que se puede usar a mitad de desarrollo, mientras que en el modelo en cascada cada fase del proceso debe ser finalizada (firmada) para pasar a la siguiente fase. El desarrollo de software no es lineal y esto crea dificultades si se utiliza una metodología en cascada[@bib2].
+
+Cada cierto tiempo se han realizo releases. Utilizamos un formato de versiones semántico[@bib3] del tipo X.Y.Z donde, X, Y y Z son números enteros mayores que 0.
+
+X se corresponde a la versión mayor (cambios grandes que modifican parte o gran parte de la funcionalidad). Y se corresponde a la versión menor(pequeños cambios, corrección de bugs) y Z, que son micro versiones (parches, pequeños bugs críticos...).
+
+<!-- TODO comentar integración continua y despliegue continuo añadido a scrum -->
 
 \pagebreak
 &nbsp;
