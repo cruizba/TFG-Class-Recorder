@@ -139,14 +139,14 @@ Así de sencillo, y la app disponde de los mismos controles que la aplicación d
 
 ![Flujo de trabajo con Class Recorder](images/test.png){#flujo_trabajo_2}
 
-# Tecnologías herramientas y metodologías
+# Tecnologías, herramientas y metodologías
 
 <!-- TODO -->
 Breve introducción a la sección.
 
-## Proceso de desarrollo
+## Metodología de desarrollo
 
-El proyecto ha sido únicamente desarrollado por mi, unido a la continua retroalimentación de mi tutor. Se podría considerar que se ha utilizado la metodología de Scrum[@bib1], pero para los más puristas en cuanto a metodologías software no sería considerado como tal, ya que no se ha contado con el numero de personas suficientes para poder aplicar Scrum de la manera más eficiente posible, teniendo como Product Owner a mi tutor y yo mismo como Scrum Master y equipo de desarrollo. La propia guía de Scrum especifica que hay 3 roles diferentes: Product Owner, Equipo de desarrollo, y un Scrum Master. Además se dicta que el mínimo de personas necesarias para aplicar Scrum de la manera más eficaz es de 3 personas. Equipos de menos de 3 personas reduce la interacción y resulta en ganancias de productividad pequeñas. Sin embargo, sí que se han tenido reuniones pasadas ciertas semanas en el equipo para ver cómo ha ido avanzando el proyecto, retrospectivas, prototipos, integración, pruebas, etc. No obstante, como no aplicamos todas las reglas de Scrum, consideraremos que el desarrollo se está realizando con una metodología iterativa e incremental ágil tal y como se muestra en la Figura \ref{fig:2}.
+El proyecto ha sido desarrollado por mi, unido a la continua retroalimentación de mi tutor. Se podría considerar que se ha utilizado la metodología de Scrum[@bib1], pero para los más puristas en cuanto a metodologías software no sería considerado como tal, ya que no se ha contado con el numero de personas suficientes para poder aplicar Scrum de la manera más eficiente posible, teniendo como Product Owner a mi tutor y yo mismo como Scrum Master y equipo de desarrollo. La propia guía de Scrum especifica que hay 3 roles diferentes: Product Owner, Equipo de desarrollo, y un Scrum Master. Además se dicta que el mínimo de personas necesarias para aplicar Scrum de la manera más eficaz es de 3 personas. Equipos de menos de 3 personas reduce la interacción y resulta en ganancias de productividad pequeñas. Sin embargo, sí que se han tenido reuniones pasadas ciertas semanas en el equipo para ver cómo ha ido avanzando el proyecto, retrospectivas, prototipos, integración, pruebas, etc. No obstante, como no aplicamos todas las reglas de Scrum, consideraremos que el desarrollo se está realizando con una metodología iterativa e incremental ágil tal y como se muestra en la Figura \ref{fig:2}.
 
 >>
 
@@ -162,9 +162,20 @@ Un desarrollo iterativo e incremental ofrece varias ventajas con respecto a otra
 
 Cada cierto tiempo se han realizo releases. Utilizamos un formato de versiones semántico[@bib3] del tipo X.Y.Z donde, X, Y y Z son números enteros mayores que 0.
 
-X se corresponde a la versión mayor (cambios grandes que modifican parte o gran parte de la funcionalidad). Y se corresponde a la versión menor(pequeños cambios, corrección de bugs) y Z, que son micro versiones (parches, pequeños bugs críticos...).
+X se corresponde a la versión mayor (cambios grandes que modifican parte o gran parte de la funcionalidad). Y se corresponde a la versión menor(pequeños cambios, corrección de bugs) y Z, que son micro versiones (parches, pequeños bugs críticos...). Se han incorporado además de las prácticas ágiles más comunes un sistema de integración y despliegue continuo.
 
-<!-- TODO comentar integración continua y despliegue continuo añadido a scrum -->
+## Tecnologías y lenguajes
+
+<!-- TODO -->
+blabla
+
+## Organización de Repositorio y Task Managing
+
+Este proyecto cuenta con un proyecto backend y dos proyectos frontend, de los cuales uno es el frontend de pc y el otro es una aplicación móvil de Ionic. Para organizar nuestro proyecto he utilizado Git como control de versiones y GitHub como repositorio remoto. Se decidió organizar toda la parte principal del proyecto en un solo repositorio.
+
+Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear dichas tareas repetitivas de forma atómica, de tal modo que podemos encadenar tareas, esperar a otras de una forma bastante sencilla y cómoda. En el Anexo 1 se puede ver además de una guía de configuración para el entorno de desarrollo, una lista con los scripts para compilar y ejecutar el proyecto.
+
+En la raíz del repositorio se encuentran los scripts más generales para compilar toda la arquitectura, mientras que el resto de carpetas son los diferentes módulos (backend, frontend de pc y frontend móvil) de nuestro proyecto.
 
 \pagebreak
 &nbsp;
