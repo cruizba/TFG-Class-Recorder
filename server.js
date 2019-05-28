@@ -19,7 +19,7 @@ createPdf().then(() => {
     app.use('/document',express.static(__dirname + '/document'));
     app.use('/js', express.static(__dirname + '/js'));
     console.log("Created pdf");
-    app.listen(3010, () => console.log('Server started at localhost:3010'));
+    app.listen(3000, () => console.log('Server started at localhost:3000'));
     let server = http.createServer(app);
     let reloadServer = reload(app);
     fs.watchFile(document, (curr, prev) => {
@@ -64,26 +64,26 @@ function executeCommand(commandForSpawn) {
         const command = spawn(commandForSpawn.command, commandForSpawn.args, {
             cwd: process.cwd() + "/document"
         });
-    
+
         command.stdout.on('data', (data) => {
             console.log(`${data}`);
         });
-    
+
         command.stderr.on('data', (data) => {
             console.log(`${data}`);
         })
-    
+
         command.on('error', (err) => {
             console.log(`Failed to start ${commandString}`);
             console.log(err);
             reject(err);
         });
-    
+
         command.on('close', () => {
             resolve();
         });
     });
-} 
+}
 
 function createPdf() {return new Promise(async (resolve, reject) => {
     //Create temp folder if it doesn't exists

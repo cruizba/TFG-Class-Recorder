@@ -1,10 +1,1 @@
-deb http://no.archive.ubuntu.com/ubuntu/ artful main restricted
-deb http://no.archive.ubuntu.com/ubuntu/ artful-updates main restricted
-deb http://no.archive.ubuntu.com/ubuntu/ artful universe
-deb http://no.archive.ubuntu.com/ubuntu/ artful-updates universe
-deb http://no.archive.ubuntu.com/ubuntu/ artful multiverse
-deb http://no.archive.ubuntu.com/ubuntu/ artful-updates multiverse
-deb http://no.archive.ubuntu.com/ubuntu/ artful-backports main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu artful-security main restricted
-deb http://security.ubuntu.com/ubuntu artful-security universe
-deb http://security.ubuntu.com/ubuntu artful-security multiverse
+deb [trusted=yes] http://ppa.launchpad.net/malteworld/ppa/ubuntu bionic main

@@ -177,7 +177,7 @@ Para gestionar las builds y los scripts de test, hemos utilizado gulp, una libre
 
 En la raíz del repositorio se encuentran los scripts más generales para compilar toda la arquitectura, mientras que el resto de carpetas son los diferentes módulos (backend, frontend de pc y frontend móvil) de nuestro proyecto.
 
-En la siguiente imagen se puede ver la estructura de nuestro proyecto, junto con las diferentes tecnologías que se han utilizado. Cada una de las carpetas de este proyecto se corresponden con cada una de las partes de la arquitectura definidos en el apartado \ref{archictecture}.
+En la siguiente imagen se puede ver la estructura de nuestro proyecto, junto con las diferentes tecnologías que se han utilizado. Cada una de las carpetas de este proyecto se corresponden con cada una de las partes de la arquitectura definidos en el apartado \ref{archictecture} donde definimos los task para hacer las builds y los test en más profundidad.
 
 ![Ciclo iterativo e incremental](images/test.png){#fig:tree_src}
 
