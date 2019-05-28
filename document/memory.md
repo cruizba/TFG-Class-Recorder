@@ -146,11 +146,11 @@ Breve introducción a la sección.
 
 ## Metodología de desarrollo
 
-El proyecto ha sido desarrollado por mi, unido a la continua retroalimentación de mi tutor. Se podría considerar que se ha utilizado la metodología de Scrum[@bib1], pero para los más puristas en cuanto a metodologías software no sería considerado como tal, ya que no se ha contado con el numero de personas suficientes para poder aplicar Scrum de la manera más eficiente posible, teniendo como Product Owner a mi tutor y yo mismo como Scrum Master y equipo de desarrollo. La propia guía de Scrum especifica que hay 3 roles diferentes: Product Owner, Equipo de desarrollo, y un Scrum Master. Además se dicta que el mínimo de personas necesarias para aplicar Scrum de la manera más eficaz es de 3 personas. Equipos de menos de 3 personas reduce la interacción y resulta en ganancias de productividad pequeñas. Sin embargo, sí que se han tenido reuniones pasadas ciertas semanas en el equipo para ver cómo ha ido avanzando el proyecto, retrospectivas, prototipos, integración, pruebas, etc. No obstante, como no aplicamos todas las reglas de Scrum, consideraremos que el desarrollo se está realizando con una metodología iterativa e incremental ágil tal y como se muestra en la Figura \ref{fig:2}.
+El proyecto ha sido desarrollado por mi, unido a la continua retroalimentación de mi tutor. Se podría considerar que se ha utilizado la metodología de Scrum[@bib1], pero para los más puristas en cuanto a metodologías software no sería considerado como tal, ya que no se ha contado con el numero de personas suficientes para poder aplicar Scrum de la manera más eficiente posible, teniendo como Product Owner a mi tutor y yo mismo como Scrum Master y equipo de desarrollo. La propia guía de Scrum especifica que hay 3 roles diferentes: Product Owner, Equipo de desarrollo, y un Scrum Master. Además se dicta que el mínimo de personas necesarias para aplicar Scrum de la manera más eficaz es de 3 personas. Equipos de menos de 3 personas reduce la interacción y resulta en ganancias de productividad pequeñas. Sin embargo, sí que se han tenido reuniones pasadas ciertas semanas en el equipo para ver cómo ha ido avanzando el proyecto, retrospectivas, prototipos, integración, pruebas, etc. No obstante, como no aplicamos todas las reglas de Scrum, consideraremos que el desarrollo se está realizando con una metodología iterativa e incremental ágil tal y como se muestra en la Figura \ref{fig:incremental}.
 
 >>
 
-![Ciclo iterativo e incremental](images/incremental_and_iterative.jpg){#fig:2 .class width=10cm}
+![Ciclo iterativo e incremental](images/incremental_and_iterative.jpg){#fig:incremental .class width=10cm}
 
 En este modelo, primero se realiza un análisis de los requisitos que se van a necesitar para cada iteración. Después del desarrollo de estos, se hacen pruebas y para finalizar se integra con el resto del sistema.
 
@@ -176,6 +176,11 @@ Este proyecto cuenta con un proyecto backend y dos proyectos frontend, de los cu
 Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear dichas tareas repetitivas de forma atómica, de tal modo que podemos encadenar tareas, esperar a otras de una forma bastante sencilla y cómoda. En el Anexo 1 se puede ver además de una guía de configuración para el entorno de desarrollo, una lista con los scripts para compilar y ejecutar el proyecto.
 
 En la raíz del repositorio se encuentran los scripts más generales para compilar toda la arquitectura, mientras que el resto de carpetas son los diferentes módulos (backend, frontend de pc y frontend móvil) de nuestro proyecto.
+
+En la siguiente imagen se puede ver la estructura de nuestro proyecto, junto con las diferentes tecnologías que se han utilizado. Cada una de las carpetas de este proyecto se corresponden con cada una de las partes de la arquitectura definidos en el apartado \ref{archictecture}.
+
+![Ciclo iterativo e incremental](images/test.png){#fig:tree_src}
+
 
 \pagebreak
 &nbsp;
@@ -224,7 +229,7 @@ Las historias de usuarios que consisten en una serie de comportamientos o módul
 &nbsp;
 \newpage
 
-## Arquitectura y análisis
+## Arquitectura y análisis {#archictecture}
 
 \pagebreak
 &nbsp;
