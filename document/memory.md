@@ -499,7 +499,7 @@ Puede ser que el lector se haya dado cuenta, de que la arquitectura de desarroll
 
 Es necesario mencionar, que no utilizamos para nada la API de Electron para hacer operaciones con el sistema. Electron no es necesario en ningun momento para el desarrollo, todo el trabajo de ficheros y llamadas al sistema las realiza el servidor de Spring, y utilizamos Electron sólo para empaquetar la aplicación.
 
-### Módulos del servidor. Ffmpeg Wrapper y Youtube. {#sec_arch_modules}
+### Diseño módulos del servidor. Ffmpeg Wrapper y Youtube. {#sec_arch_modules}
 
 En la siguiente sección explicaremos el diseño de dos módulos independientes que hemos creado para la aplicación en cuestión. Uno de ellos es un wrapper de Ffmpeg para poder realizar las grabaciones y el otro es una clase que utiliza la API de Youtube.
 
@@ -613,6 +613,160 @@ Por otro lado en el segundo caso, si el usuario quiere grabar el audio del móvi
 ## Diseño e implementación {#dis_e_imp}
 
 En esta seccion se explicará con más detalle como se han implementado los modulos introducidos en la sección \ref{sec_arch_modules}, como instanciarlos sin Spring Boot, cómo se han instanciado a modo de Servicios en Spring Boot, como es el fichero de metadatos de los cortes, los comandos de ffmpeg utilizados, además de algunas muestras de la interfaz de usuario, las pruebas automáticas que se han realizado y los pasos que sigue el sistema de CI/CD.
+
+### Implementación Wrapper Ffmpeg
+
+Para simplificar el proceso de grabación, se ha aplicado el principio de responsabilidad única, creando para cada sistema operativo, una clase muy simple que simplemente ejecuta comandos Ffmpeg a partir de unos parámetros y la clase `FfmpegWrapper.java` controla el proceso de grabación de forma agnóstica al sistema. Para entender como funciona el Wrapper de Ffmpeg tenemos que echar un vistazo al constructor de la clase `FfmpegWrapper.java`.
+
+```java
+public FfmpegWrapper(Path ffmpegOutput, 
+                    String x11device,
+                    String ffmpegDirectory) 
+                    throws OperationNotSupportedException, IOException {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    this.os = System.getProperty("os.name");
+    log.info("Operaiting system: " + this.os);
+
+    this.screenWidth = new Double(screenSize.getWidth()).intValue();
+    this.screenHeight = new Double(screenSize.getHeight()).intValue();
+    this.x11device = x11device;
+    this.videoContainerFormat = null;
+    this.videoName = null;
+    this.directory = null;
+    this.recording = false;
+    this.observers = new ArrayList<>();
+    this.observers.add(new FfmpegWrapperLogger());
+
+    if (this.os.equals("Linux")) {
+        this.ffmpegCommand = new ICommandLinux(ffmpegOutput,
+                                                   x11device,
+                                                  ffmpegDirectory);
+    }
+    else if(this.os.contains("Windows")) {
+        this.ffmpegCommand = new ICommandWindows(ffmpegDirectory);
+    }
+}
+```
+
+Como se puede observar en las líneas 9 y 10 cogemos las dimensiones de la pantalla (independientemente del sistema operativo, Java ofrece un método multiplataforma para ello), y en las lineas 19-26 instanciamos el objeto `ICommand` correspondiente para el sistema operativo en ejecución.
+
+Instanciar esta clase es realmente sencillo. Solo es necesario introducir las siguientes instrucciones:
+
+```java
+FfmpegWrapper ffmpeg = new FfmpegWrapper();
+
+ffmpeg.setAudioFormat(FfmpegAudioFormat.libvorbis)
+  .setVideoFormat(FfmpegVideoFormat.libx264)
+  .setContainerVideoFormat(FfmpegContainerFormat.mkv)
+  .setFrameRate(60)
+  .setDirectory("videos")
+  .setVideoName("test");
+
+ffmpeg.startRecordingVideoAndAudio();
+```
+
+Como vemos, solo necesitamos  configurar una serie de parámetros al principio, especificar el formato de audio y de video que se va a utilizar, el formato de cotenedor, el framerate, el directorio donde guardar los videos y el nombre del video. Posteriormente podríamos ejecutar la última instrucción y ffmpeg comenzaría a grabar. 
+
+¿Cuales son los comandos que lanza cada método? Las implementaciones de los comandos concretos se encuentran en las clases: `ICommandWindows.java` y `ICommandLinux.java`  Vamos a explicar los tres comandos más importantes implementados de la clase `ICommandLinux.java`
+
+**Grabar video con audio**: Se utiliza el método `executeFfmpegVideoAndSound` que implementa el siguiente comando para los videos `mkv`. Este comando concreto es un ejemplo de un video grabado desde la aplicación en Linux:
+
+```
+ffmpeg -f x11grab -framerate 60 -s 1366x768 -i :0 \
+-vcodec h264 -thread_queue_size 20480 -f alsa -i default \
+-pix_fmt yuv420p -acodec mp3 -preset ultrafast -crf 30 \
+/home/user/test.mkv
+```
+
+Los parámetros del siguiente comando son los siguientes: 
+
+- `-f`: Formato de entrada. En este caso especificamos que el formato es `x11grab` ya que proviene del servidor de ventanas x11 en Linux.  Para el audio en Linux especificamos alsa. 
+
+- `-framerate`: Frames por segundos capturados. Esta opción es parametrizable desde el método.
+
+- `-s`: Resolución de la pantalla. Este parámetro es inicializado por el sistema y no es necesario que el usuario lo introduzca.
+
+- `-i`: Input de video. Especificamos `:0`para que obtenga la salida por defecto de video del servidor de ventanas de x11.  En el caso del audio ponemos `default` para que coja el micrófono configurado por defecto en el sistema.
+
+- `-vcodec`: Codec de video con el que se guardará el video. En este caso h264. 
+
+- `-acodec`: Formato de audio. En este caso mp3.
+
+- `-thread_queue_size`: Especifica el tamaño de una cola de procesamiento para la conversión. Especificando un tamaño grande para la cola estamos incrementando la cantidad de paquetes que pueden esperar para ser codificados al formato especificado. En este caso hemos puesto un valor por defecto alto de 20480 bytes.
+
+- `pix_fmt`: Especifica el formato de pixeles. En este caso hemos utilizado `yuv420p` que es un formato de píxeles que permite reducir significativamente el tamaño en favor de píxeles más iluminados, pero reduciendo la calidad.
+
+- `-preset`: Esta opcion es específica del codec h264. Cada opción posible de este parámetro representa un conjunto de opciones para codificar. En nuestro caso hemos utilizado `ultrafast`, el cual produce un video de mayor tamaño pero la compresión del video requiere de menos procesamiento.
+
+- `-crf` Esta opción también es especifica de h264. Los rangos posibles van desde el `0` (que representa una codificación sin perdidas pero que requiere un mayor procesamiento) al `51` (que representa la peor calidad posible pero con una velocidad de procesamiento necesaria más baja). Hemos optado por un valor más o menos equilibrado, que en nuestro caso es `30`.
+
+- Nombre del fichero final. Este parámetro también es parametrizable desde el método.
+
+Tras muchas pruebas, este fue el comando que mejores resultados se obtuvieron midiendo calidad y procesamiento, aunque en un futuro dichos parámetros pueden ser configurables.
+
+En el caso de Windows el comando es similar, solo cambian los parametros de entrada y de formato. 
+
+**Cortar video**: Se utiliza el método `executeFfmpegCutVideo()`. Al igual que el comando anterior, este comando es un ejemplo concreto ejecutado por la aplicación:
+
+```
+ffmpeg -i <directory-videos>/video_to_cut.mkv \
+-vcodec copy -acodec copy \
+-ss 00:00:00 -to 00:00:15 \
+<directory-temp-class-recorder>/temp/out0.mkv -acodec copy \
+-ss 00:00:29 -to 00:00:34 \
+<directory-temp-class-recorder>/temp/out1.mkv -acodec copy \
+-ss 00:00:36 -to 00:00:37 \
+<directory-temp-class-recorder>/temp/out2.mkv 
+```
+
+Este comando a grandes rasgos es similar al anterior, lo unico distinto es la entrada que es el video a cortar, y que por cada segmento de video que se quiere cortar, se introducen los siguientes parámetros:
+
+- `-acodec copy`: Utiliza como codec de audio, el mismo codec que el video de entrada.
+
+- `-vcodec copy`: Utiliza como codec de video el mismo codec que el video de entrada
+
+- `-ss`: segmento de video que se quiere cortar
+
+Los segmentos de video son proporcionados por un parametro en el método que contiene una lista de cortes, y que es representado por un fichero a modo de metadatos en la aplicación. El formato de los cortes es explicado en la sección \ref{ws_and_cuts}. Los videos cortados seran creados en una carpeta especificada.
+
+**Juntar videos**: Se utiliza el método `executeMergeVideos()`. Ejemplo del comando:
+
+```
+ffmpeg -f concat -i <directory-temp-class-recorder>/temp/files.txt \
+-c copy <directory-videos>/test_cutted.mkv
+```
+
+A partir de un fichero de texto que se habrá creado con anterioridad en  una carpeta temporal especificada se generará un video con los videos unidos juntados en uno único. 
+
+### Implementación módulo Youtube
+
+Para implementar la subida a videos de youtube se ha decidido utilizar una librería que haga las llamadas http pertintentes, ya que para esta tarea especifica, si existían librerías apropiadas para subir vídeos a Youtube. La librería que hemos utilizado ha sido las librerías de youtube de Google.
+
+Así pues hemos seguido un ejemplo de la api[^6] y lo hemos adaptado a nuestras necesidades. Esta api necesita de una clave secreta de aplicación que hemos generado a traves de las herramientas de desarrollo de Google. Al subir un video generamos una url que el usuario visita para dar permisos a nuestra a nuestra api de Youtube para poder subir videos a la cuenta del usuario de Google.
+
+Lo unico necesario para instanciar esta clase y subir un vídeo son las siguientes instrucciones:
+
+```java
+YoutubeUploader youtube = new YoutubeUploader();
+
+YoutubeVideoInfo videoInfo = new YoutubeVideoInfo();
+  videoInfo.setVideoTitle("Video de prueba");
+  videoInfo.setDescription("Descripcion del video");
+  videoInfo.setPrivacyStatus("unlisted");
+  videoInfo.setVideoPath("videos/video_de_prueba1.mkv");
+
+youtube.uploadVideo(videoInfo);
+```
+
+Como vemos la forma de inicializar el módulo es bastante similar al del wrapper de ffmpeg. Simplemente le pasamos los parametros necesarios para subir el video y ejecutamos la última instrucción.
+
+### Inyección de los módulos como servicios en Spring Boot
+
+Los dos módulos descritos con anterioridad, de por sí, son independientes de cualquier framework y podrían ser utilizados en cualquier proyecto de Java 8. Pero en nuestro caso, tenemos que proporcionar la funcionalidad de estos módulos como servicios en una aplicación de Spring Boot. Para ello tenemos que hacer uso de la inyección de dependencias de Spring y la configuración de los Beans.
+
+[^6]: https://developers.google.com/youtube/v3/code_samples/java?hl=es-419
+
+### Websocket controlando el wrapper de Ffmpeg y metadatos para los cortes. {#ws_and_cuts}
 
 \pagebreak
 &nbsp;
