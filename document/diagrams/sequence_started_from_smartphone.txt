@@ -1,0 +1,57 @@
+title Secuencia de grabación des
+Angular Frontend->Spring Boot Server:[WS] connect
+Spring Boot Server->Angular Frontend: [WS] Connected
+Ionic App->Spring Boot Server:[WS] connect
+Spring Boot Server->Ionic App: [WS] connected
+group #2f2e7b Started Record from Smartphone #white
+Ionic App->Spring Boot Server:[WS] Record
+parallel
+Spring Boot Server->Angular Frontend:[WS] Recording from mobile
+Spring Boot Server->Ionic App:[WS] Recording from mobile
+parallel off
+end
+activate Spring Boot Server
+space 3
+group #2f2e7b Paused from Smartphone #white
+Ionic App->Spring Boot Server:[WS] Pause
+parallel
+Spring Boot Server->Angular Frontend: [WS] Paused
+Spring Boot Server->Ionic App: [WS] Paused
+parallel off
+end
+space 3
+group #2f2e7b Continue from PC #white
+Angular Frontend->Spring Boot Server: [WS] Continue
+parallel
+Spring Boot Server->Angular Frontend: [WS] Recording from mobile
+Spring Boot Server->Ionic App: [WS] Recording from mobile
+parallel off
+end
+space 3
+group #2f2e7b Stopped from Smartphone #white
+Ionic App->Spring Boot Server:[WS] Stop
+parallel
+Spring Boot Server->Angular Frontend: [WS] Stopped
+Spring Boot Server->Ionic App: [WS] Stopped
+end
+deactivate Spring Boot Server
+parallel off
+group #2f2e7b Send Audio from mobile #white
+Ionic App->Spring Boot Server: [http Multipart] Send Audio
+activate Ionic App
+space 8
+Spring Boot Server->Ionic App: [http] Sended
+end
+deactivate Ionic App
+group #2f2e7b Merge video and Audio on Server #white
+Ionic App->Spring Boot Server: [http] Merge Video And audio
+activate Spring Boot Server
+space 5
+parallel 
+Spring Boot Server->Ionic App: [http] Merged
+Spring Boot Server->Angular Frontend: [http] Merged
+deactivate Spring Boot Server
+parallel off
+end
+end
+

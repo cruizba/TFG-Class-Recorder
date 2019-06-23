@@ -161,9 +161,9 @@ El proyecto ha sido desarrollado por mi, unido a la continua retroalimentación 
 
 En este modelo, primero se realiza un análisis de los requisitos que se van a necesitar para cada iteración. Después del desarrollo de estos, se hacen pruebas y para finalizar se integra con el resto del sistema.
 
-Cada 2 semanas se ha realizado una iteración donde se realizaron todos los pasos comentados anteriormente, donde todo se decidió qué historias de usuario eran más críticos e importantes y los bugs que se detectaron para resolverlos. En base a estas decisiones y utilizando herramientas online como Trello[^3], se gestionó que tareas debían realizarse en cada iteración.
+Cada 2 semanas se ha realizado una iteración donde se realizaron todos los pasos comentados anteriormente, donde todo se decidió qué historias de usuario eran más críticos e importantes y los bugs que se detectaron para resolverlos. En base a estas decisiones y utilizando herramientas online como Trello[^1], se gestionó que tareas debían realizarse en cada iteración.
 
-[^3]: Es un tablero online donde se pueden crear, asignar y clasificar tareas, de tal modo que todo el equipo tiene una visión global del estado actual de desarrollo que se está creando.
+[^1]: Es un tablero online donde se pueden crear, asignar y clasificar tareas, de tal modo que todo el equipo tiene una visión global del estado actual de desarrollo que se está creando.
 
 Un desarrollo iterativo e incremental ofrece varias ventajas con respecto a otras metodologías como puede ser el desarrollo en cascada. Una de las ventajas que ofrece es la entrega de software que se puede usar a mitad de desarrollo, mientras que en el modelo en cascada cada fase del proceso debe ser finalizada (firmada) para pasar a la siguiente fase. El desarrollo de software no es lineal y esto crea dificultades si se utiliza una metodología en cascada[@bib2].
 
@@ -185,7 +185,7 @@ La aplicación está formada por tres partes principales:
 
 Su organización a nivel de arquitectura y diseño se comentan en más profundidad en la sección \ref{archictecture}
 
-### Backend (Java + Spring Boot + Ffmpeg)
+### Backend (Java + Spring Boot + Ffmpeg) {#server_tech}
 
 Como lenguaje de servidor hemos decidido utilizar Java junto con Spring Boot. Las razones de por qué hemos utilizado Java como lenguaje de programación en el backend son:
 
@@ -253,16 +253,10 @@ En definitiva, con gulp creamos un conjunto de scripts que nos abstrae en cierta
 
 Por ejemplo para instalar las dependencias y ejecutar el servidor, solo es necesario ejecutar:
 
->
-
 ```
 npm run install-dependencies
 npm run dev:start-pc-server
 ```
-
->
-
->
 
 ![Automatización con gulp](images/gulp_automation.png){#fig:gulp_workflow .class width=11cm}
 
@@ -292,8 +286,6 @@ Por eso me decante por la opción número 3. Decidí dockerizar todo lo necesari
 
 La imagen docker comparte ciertos sockets de X11[@bib13] y de pulseaudio[@bib14] con el sistema operativo host e incorpora todas las IDE's y herramientas necesarias para desarrollar. En la siguiente imagen se puede ver un esquema visual de lo anteriormente explicado.
 
->
-
 ![Entorno de desarrollo y entorno de CI/CD](images/CI-CD-development.png){#ci-cd-env .class width=13cm}
 
 [^2]: Code Server: https://coder.com/
@@ -317,70 +309,316 @@ code class-recorder
 
 Esto le abrirá un VSCode con todo listo para programar, hacer builds, testing, etc. No es necesario instalar absolutamente nada, el script `docker_run.sh` ejecuta un `docker compose` descargando las imagenes necesarias para desarrollar. El único inconveniente que puede tener esta solución es el tamaño final de la imagen (7.44 GB). Incluso se puede conectar un dispositivo Android y este sería detectado perfectamente ya que la imagen comparte los dispositivos usb y lleva incorporada una version de Android SDK y ADB. 
 
+He podido comprobar la utilidad de dockerizar el entorno de desarrollo. Cambiar entre ordenadores con Ubuntu no me requería de ningún tipo de instalación ni configuración previa, tan solo tener docker instalado, lo cual también me permitió cambiar entre entornos de desarrollo facilmente.
+
 ## Tecnologías utilizadas para escribir esta memoria (Pandoc + Markdown)
 
+La presente memoria, como se puede observar, es similar a un proyecto de Latex. Sin embargo la totalidad de su contenido está escrita en Markdown que es un lenguaje de marcado el cual permite dar formato a un texto. ¿Por qué Markdown?
+
+- Posee una sintaxis sencilla y ágil.
+
+- Hay multitud de herramientas web para posteriormente reutilizar el contenido escrito en markdown para realizar blogs.
+
+- Realizar tablas, insertar imagenes, es realmente sencillo, y se puede utilizar con otras herramientas.
+
+- No dependes de un formato especifico. No se utiliza ningún formato especial como XML para guardar los ficheros y el documento es editable desde cualquier editor de texto, por lo que se facilita la tarea de escribir en cualquier sitio y distribuir el conocimiento sin depender de un software.
+
+Pero markdown de por sí, como lenguaje de marcado se quedaba un poco corto. Necesitabamos añadir figuras, numerarlas, crear una tabla de contenido, gestionar una bibliografía, etc. Entonces decidi utilizar Pandoc, que permite:
+
+- Convertir documentos de texto.
+
+- Podemos utilizar la sintaxis específica de Markdown para añadir figuras, utilizar una bibliografía, dar formato, y cambiar incluso entre formatos de citación, todo ello desde un único fichero de texto plano.
+
+- Si nuestro documento final es un documento Latex, podemos utilizar sintaxis especifica de este para realizar ciertas características que el propio formato de Markdown no permite.
+
+Así, con Pandoc y Markdown podemos hacer de forma muy sencilla cosas como:
+
+- Añadir una citación poniendo su id junto con un `@`:
+  
+  `@id_citacion`
+  
+  Todas las referencias pueden ir organizadas en un fichero .bib y tan solo es necesario poner la referencia para que se autogenere en la bibliografía.
+
+- Numerar títulos automáticamente y generar tablas de contenido con sintaxis especifica de markdown.
+
+- Referencias con ids.
+
+Esta memoria se encuentra en un repositorio de GitHub[^4] y se puede ejecutar de la siguiente manera mediante docker:
+
+```
+git clone https://github.com/cruizba/TFG-Class-Recorder
+
+cd TFG-Class-Recorder
+
+docker run -itv $(pwd):/home/userdocker/tfg --entrypoint "/usr/bin/node" \
+-p 3000:3000 cruizba/markdown-to-latex-book server.js
+```
+
+Esto creara un servidor web en el puerto 3000 el cual contiene un index.html con el pdf de la salida en latex de todo el documento. Cada vez que se guarda el documento en markdown, se autogenera de nuevo y se recarga la página.
+
+[^4]: TFG Class Recorder: https://github.com/cruizba/TFG-Class-Recorder
+
 ## Electron como plataforma final de producción.
+
+En un principio, este proyecto se iba a distribuir a través de una imagen docker. Pero surgieron varios problemas:
+
+- La imagen docker dependía mucho del sistema, ya que necesita el servidor de x11 (el servidor de ventanas) debía ser el del sistema host, además del servidor de audio pulseaudio.
+
+- Surgió un problema al compartir el servidor de x11 con docker al grabar videos con un parámetro específico.
+
+- Las personas que no conocieran docker o que estuvieran fuera del ambito del desarrollo, como profesores de otro tipo de asignaturas, no podrían utilizar este programa.
+
+Entonces decidí usar electron para la aplicación Electron[^5].
+
+[^5]: Electron: https://electronjs.org/
+
+![Logotipo de Electron](images/electron-icon.png){#elec-image .class width=4cm}
+
+Electron es una tecnología que nos permite empaquetar aplicaciones web como si fueran aplicaciones de escritorio y ofrece una modelo que nos permite interactuar con el sistema operativo, los ficheros, las notificaciones... para poder crear aplicaciones nativas con tecnologías web. 
+
+Hablaremos más en detalle sobre como se empaqueta la aplicación en la sección \ref{dis_e_imp}
 
 &nbsp;
 \newpage
 
 # Descripción informática
 
-**25 a 35 páginas**
+En la secciones anteriores hemos explicado las tecnologías que hemos utilizado y como hemos configurado el entorno de desarrollo, de CI y la metodología que estamos utilizando. En las siguientes secciones nos centraremos más en lo que es el desarrollo de la apliación en si misma.
 
-\pagebreak
-&nbsp;
-\newpage
+Primero se hará una descripción de los requisitos funcionales y no funcionales, posteriormente se describirá de forma detallada la arquitectura y como se comunicarán los diferentes componentes de nuestra aplicación. 
+
+Posteriormente se ahondará a nivel de código y de diseño como se han implementado las partes más complejas de la aplicación.
 
 ## Requisitos
 
+Antes de comenzar las iteraciones y primeros prototipos del proyecto, es necesario crear una especificación de requisitos clara y concisa. Vamos a seguir algunas de las recomendaciones del estándar IEEE830[@bib6] para ello. En un desarrollo iterativo e incremental ágil debemos tener muy en cuenta que los requisitos puedan ser modificables con frecuencia.
+
 ### Requisitos funcionales
 
-Las historias de usuarios que consisten en una serie de comportamientos o módulos que deben ser integrados en el sistema de simulación y son los siguientes:
+Los requisitos consisten en una serie de comportamientos o módulos que deben ser integrados en la aplicación y son los siguientes:
 
 **Requisito funcional 1**
 
+*Grabar escritorio*: La aplicación deberá ser capaz de grabar el escritorio junto con la voz de una forma fácil y sencilla con las características, con una configuración previa .
+
 **Requisito funcional 2**
+
+*Controlar grabación del escritorio*: La aplicación deberá ofrecer una interfaz de usuario para poder comenzar, pausar o parar la grabación.
 
 **Requisito funcional 3**
 
+*Editar los cortes de los videos*: La aplicación deberá generar durante la grabación unos metadatos con los que poder editar posteriormente los cortes.7
+
+La grabación se realizará de tal forma que cada pausa no parará la grabación del video, si no que creara un metadato con la información del momento exacto en el que se realizó dicha pausa, para poder posteriormente editar el video a traves de una interfaz de usuario.
+
 **Requisito funcional 4**
+
+*Subir videos a una plataforma en la nube*: La aplicación deberá ofrecer un mecanismo facilmente configurable con el cual poder realizar subidas automatizadas por ejemplo a Youtube, para poder ofrecer las clases a los alumnos rápidamente. Estos videos subidos deberán ser los videos previamente editados o grabados.
 
 **Requisito funcional 5**
 
+*App móvil*: La aplicación deberá ofrecer un software adicional móvil con el que poder controlar las grabaciones y grabar el audio desde el mismo. Así pues se distinguirían dos posibles casos de grabación:
+
+- Si el profesor inicia la grabación desde la aplicación móvil, se grabará el audio procedente del micrófono del smartphone, y se grabará el contenido del escritorio de su ordenador principal.
+
+- Si el profesor inicia la grabación desde el ordenador, se grabará el audio procedente del PC y se grabará también el escritorio del mismo.
+
+Así mismo la aplicación móvil ofrecerá también la posibilidad de cambiar de diapositivas para que el profesor no tenga que recurrir a mandos o controladores externos.
+
 **Requisito funcional 6**
+
+*Gestión de usuarios*: La aplicación por el momento será de escritorio. Pero en un futuro deberá ofrecer la posibilidad de gestionar diferentes cuentas de usuario.
 
 **Requisito funcional 7**
 
+*Gestion de cursos:* La aplicación deberá ofrecer también un mecanismo para organizar los cursos que imparte.
+
 **Requisito funcional 8**
+
+*Modificación de videos subidos*: Se deberá poder modificar ciertos campos del video subido:
+
+- Título.
+
+- Descripción
+
+- Tags
 
 ### Requisitos no funcionales
 
+Los requisitos no funcionales son aquellos que no representan partes de la lógica del problema que se quiere resolver, si no sobre su calidad de ejecución, entornos donde se debe poder ejecutar, y su posible extensibilidad escalabilidad. Los requisitos no funcionales son los siguientes:
+
 **Requisito no funcional 1**
+
+La aplicación debe ser ejecutable en los siguientes sistemas operativos:
+
+- Windows 10
+
+- Ubuntu
 
 **Requisito no funcional 2**
 
+La aplicación debe ser fácilmente configurable, sin necesidad de complejas configuraciones para su inicialización.
+
 **Requisito no funcional 3**
 
-**Requisito no funcional 4**
+La aplicación móvil debe poder ejecutarse en Android, pero ofrecer la posibilidad de extenderse a otros sistemas operativos.
+
+## Análisis y arquitectura {#archictecture}
+
+En la siguiente sección haremos un previo análisis de los requisitos anteriormente mencionados, para poder definir una arquitectura y definir los distintos componentes de nuestra aplicación final.
+
+Previamente a la implementación es necesario hacer un análisis de algunos de los requisitos y abstraer dichas necesidades para poder plantear la arquitectura de nuestra aplicación. A continuación se describen algunas características que nos llevan a pensar en la arquitectura que se va a plantear: 
+
+1. Debe ser una aplicación de escritorio que permita editar los videos. (Requisito funcional 1, 2 y 3; Requisito no funcional 1, 2)
+
+2. Aplicación móvil externa para controlar la aplicación y grabar el audio. (Requisito funcional 2 y 5; Requisito no funcional 3)
+
+3. Debe poder grabar y controlar la grabación del el escritorio y el audio desde el móvil y desde la aplicación. (Requisito funcional 1, 2 y 5)
+
+4. Control de usuarios y gestion de cursos. (Requisito funcional 6, 7 y 8).
+
+5. Deben poder subirse los videos a una plataforma web. (Requisito funcional 4).
+
+Con los 5 puntos podemos definir la arquitectura y además se puede ver como satisfacemos todos los requisitos.
+
+A continuación, vamos a ir creando nuestra arquitectura a partir de los puntos mecionados anteriormente.
+
+1. Para cumplir el punto 1 de la lista anterior, crearemos una aplicación web con su parte backend en Spring boot y Java; y su parte Frontend en Angular. Todo ello finalmente será empaquetado en un electron con ffmpeg y la JVM. Esta parte de la arquitectura se corresponde con el componente de color rojo de la Figura \ref{classrecarch}
+
+2. Con respecto al punto 2, otra parte de la arquitectura se correspondería con una aplicación móvil desarrollada con Ionic. Esto se corresponde con el componente azul de la Figura \ref{classrecarch} 
+
+3. Para poder cumplir con los puntos 2 y 3 en lo respectivo a la grabación, el servidor, el frontend del ordenador personal en Angular y el móvil se comunicarán a través de websockets en red local, de tal modo que tanto el móvil como el servidor se comunicarán para controlar la grabación, llevando el servidor la gestion de la misma, y haciendo los frontend peticiones vía websocket para controlar la grabación. Se puede ver en la Figura \ref{classrecarch} como tanto servidor como aplicación móvil están ambos están en la misma red local.
+
+4. En cuanto al punto 4, utilizaremos por el momento una base de datos con persistencia de ficheros H2, pero en el futuro podría perfectamente sustituirse por otra base de datos gracias a la abstracción que nos aporta Spring Data y Hibernate. 
+
+5. Para subir los videos y cumplir con el punto 5, utilizaremos la API de Youtube.
+
+![Arquitectura Class Recorder](images/class-recorder-arch.png){#classrecarch}
+
+Puede ser que el lector se haya dado cuenta, de que la arquitectura de desarrollo mostrada en la Figura \ref{ci-cd-env} es bastante más compleja que la de la Figura \ref{classrecarch}. Esto se debe a que verdaderamente es mucho más sencillo el entorno de producción que el de desarrollo, porque podemos prescindir de muchas herramientas y porque compartir servicios del sistema operativo Host con docker complicaba mucho las cosas. Decidimos utilizar Electron en vez de Docker para distribuir la aplicación, por el hecho de que también era preferible que la aplicación fuera lo más independiente posible y porque evitaba posibles errores de configuración y facilitaba las cosas al usuario no experto. 
+
+Es necesario mencionar, que no utilizamos para nada la API de Electron para hacer operaciones con el sistema. Electron no es necesario en ningun momento para el desarrollo, todo el trabajo de ficheros y llamadas al sistema las realiza el servidor de Spring, y utilizamos Electron sólo para empaquetar la aplicación.
+
+### Módulos del servidor. Ffmpeg Wrapper y Youtube. {#sec_arch_modules}
+
+En la siguiente sección explicaremos el diseño de dos módulos independientes que hemos creado para la aplicación en cuestión. Uno de ellos es un wrapper de Ffmpeg para poder realizar las grabaciones y el otro es una clase que utiliza la API de Youtube.
+
+**Ffmpeg Wrapper**
+
+En la parte de tecnologías (Sección \ref{server_tech}) comentabamos el uso de Ffmpeg. Esta herramienta es multiplataforma pero si se quiere utilizar para la grabación del escritorio del PC y del audio del micrófono, difieren los comandos correspondientes en cada sistema operativo. 
+
+Para ello crearemos un módulo desacoplado de la lógica de nuestro servidor que nos permita lanzar comandos a ffmpeg de forma agnóstica al sistema operativo en el que se utilice, para poder posteriormente acloparlo a nuestro servidor. Vamos a crear un wrapper limitado a esta funcionalidad de Ffmpeg. 
+
+Ya existian previamente wrappers de Ffmpeg para Java, pero estaban algo desactualizados y además no ofrecían la funcionalidad suficiente como para poder ejecutar en distintos sistemas operativos diferentes.
+
+Es por esto que decidí crear uno desde 0, sólo con la capacidad de poder realizar grabaciones de escritorio.
+
+En la Figura \ref{ffmpeg_wrapper} se pueden ver 2 clases que implementan las llamadas a los comandos concretos para los sistemas operativos Linux y Windows. Ambas clases implementan una interfaz `ICommand` la cual es instanciada en la clase `FfmpegWrapper`que se encargará de instanciar la clase concreta dependiendo del sistema operativo en el que se encuentre. Las clases que implementan ICommand deben tener los siguientes métodos y todos ellos lanzan un comando de Ffmpeg:
+
+- `executeFfmpegVideoAndSound(): Process`: Ejecuta un comando para grabar el video y el audio del escritorio.
+
+- `executeFfmpegVideo(): Process`: Ejecuta un comando para grabar sólo video.
+
+- `executeFfmpegMergeVideoAndAudio: Process`: Ejecuta un comando el cual permite juntar un audio y un video. Esta parte es principalmente para juntar el audio del móvil y el video grabado del escritorio.
+
+- `executeFfmpegCutVideo: Process:` Ejecuta un comando el cual permite cortar un video en diferentes secciones, a partir de un fichero con metadatos de cortes del mismo.
+
+- `executeMergeVideos():Process`: Junta varios videos en uno único.
+
+![Diagrama de clases del wrapper de ffmpeg para Class Recorder](images/ffmpegwrapper_uml.png){#ffmpeg_wrapper .class width=13cm}
+
+FfmpegWrapper por otro lado se encarga de gestionar la grabación y los procesos lanzados por ICommand. FfmpegWrapper se encarga de matar el proceso en caso de ser necesario, de saber si está pausado, grabando o parado, de recibir los parametros para ejecutar una grabación, y de gestionar los cortes  y de utilizar una implementación de `ICommand`dependiendo del sistema operativo en el que se encuentre.
+
+FfmpegWrapper también contiene una lista de observadores a los cuales envia la salida estandar de los comandos lanzados por ICommand, para poder enviar los resultados al frontend y gestionar los logs. Instanciar este módulo es realmente sencillo desde nuestra aplicación de Spring.
+
+**Youtube API**
+
+También necesitamos crear una clase que gestione las llamadas a la API de youtube para poder enviar los videos grabados con la aplicación. Esta clase contiene los siguientes métodos públicos:
+
+- `getOAuthUrl(): string`: Devuelve la url para hacer login en Youtube y poder subir el video.
+
+- `uploadVideo(YoutubeVideoInfo ytVideoInfo): Video`: Sube el video que se le pasa como argumento a youtube.
+
+- `updateVideo(String youtubeId, YoutubeVideoInfo ytVideoInfo): Video`:Actualiza la información de un video de youtube en función de su Id.
+
+- `deleteVideo(String youtubeId): Video`: Borra un video de youtube en función de su id.
+
+- `getState():YoutubeUploaderState`: Devuelve el estado de la subida.
+
+- `getProgress(): double`: Devuelve, si está subiendo un video, el porcentaje subido.
+
+### Diagrama Entidad-Relacion de los datos.
+
+Las siguientes entidades son utilizadas para realizar persistencia en la base de datos. Es necesario que nuestro programa sea multiusuario (para el caso de que en un futuro se pueda escalar), y que ademas gestione los cursos de cada profesor. No solo eso sino que deberá guardar también los videos de Youtube que se han guardado en la plataforma.
+
+El diagrama entidad relación es el de la Figura \ref{er_diagram} y son las siguientes entidades.
+
+- YoutubeVideo: Representa la información de un video subido a youtube. Contiene tags. Un video pertence a un curso.
+
+- Tag: Palabras clave de un video.
+
+- User: Representa los usuarios de la plataforma. Pueden ser de dos tipos, cuyo tipo es diferenciado segun su `user_type`. Los profesores tienen en el campo user_type, el valor `teacher`y los estudiantes el valor `student`. Veremos en la sección \ref{dis_e_imp} como este valor discriminatorio nos permite implementar herencias con JPA. Los profesores podrán tener un conjunto de cursos creados y los estudiantes un conjunto de cursos a los que están suscritos.
+
+- Course: Representa la información de un curso. Un curso tiene varios videos.
+
+![Diagrama entidad relacion de la base de datos](images/er_diagram.png){#er_diagram .class width=10cm}
+
+Los videos grabados sin subir a la plataforma de youtube, son representados por ficheros en una carpeta a elegir por el usuario.
+
+### Diagrama de secuencia de una grabación.
+
+En esta sección vamos a explicar dos posibles casos de uso en los que se puede utilizar esta aplicación y como se realiza esto secuencialmente para cada uno de los dos casos. Si el profesor quiere grabar el audio del micrófono del PC deberá comenzar la grabación desde el mismo PC, y del mismo modo si quiere grabar el escritorio del ordenador y grabar el audio desde el móvil deberá iniciar la grabación desde la aplicación móvil. 
+
+El diagrama de secuencia del primer caso es el siguiente.
+
+![Diagrama de secuencia de grabación grabando desde PC](images/sequence_started_from_pc.png){#seq_rec_pc .class width=9cm}
+
+Todas las peticiones se realizan a través de WebSocket. Tanto la aplicación Frontend de Angular como la aplicación Ionic  se conectan al servidor de Spring boot y reciben el estado de la grabación, pudiendose controlar desde ambos dispositivos al mismo tiempo.
+
+En la Figura \ref{seq_rec_pc} se realizan los siguientes pasos:
+
+1. Se conecta primero el PC y despues el móvil aunque el orden es irrelevante.
+
+2. Se comienza la grabación desde el ordenador, para grabar el micrófono del PC y ambos dispositivos se les notifica del estado de la grabación.
+
+3. Se pausa la grabación desde la aplicación móvil e igualmente se actualiza el estado en ambos dispositivos.
+
+4. Finalmente se para la grabación desde el móvil.
+
+Por otro lado en el segundo caso, si el usuario quiere grabar el audio del móvil, el diagrama de secuencia es el de la Figura \ref{seq_smartphone} y las siguientes:
+
+1. Se conecta, al igual que en el caso anterior, el PC y el móvil.
+
+2. Se comienza la grabación desde la aplicación móvil, y el servidor notifica del estado de la grabación, indicando que se ha realizado desde la aplicación.
+
+3. Se pausa la grabación desde el móvil
+
+4. Se continua desde el PC.
+
+5. Se para la grabación desde el móvil (aunque se podría hacer desde el ordenador).
+
+6. La aplicación móvil, al saber que la grabación la inició él, envía el audio grabado a traves de una petición http Multipart.
+
+7. Al terminar el móvil envia una petición http al servidor pidiendo mergear el video y el audio previamente enviado.
+
+8. Notifica a los dispositivos que el proceso a terminado.
 
 \pagebreak
-&nbsp;
-\newpage
 
-## Arquitectura y análisis {#archictecture}
+![Diagrama de secuencia de grabación desde móvil](images/sequence_started_from_smartphone.png){#seq_smartphone .class width=8.5cm}
 
-\pagebreak
 &nbsp;
 \newpage
 
 ## Diseño e implementación {#dis_e_imp}
 
+En esta seccion se explicará con más detalle como se han implementado los modulos introducidos en la sección \ref{sec_arch_modules}, como instanciarlos sin Spring Boot, cómo se han instanciado a modo de Servicios en Spring Boot, como es el fichero de metadatos de los cortes, los comandos de ffmpeg utilizados, además de algunas muestras de la interfaz de usuario, las pruebas automáticas que se han realizado y los pasos que sigue el sistema de CI/CD.
+
 \pagebreak
 &nbsp;
 \newpage
 
-## Pruebas
+## Evaluación y pruebas
 
 \pagebreak
 &nbsp;
