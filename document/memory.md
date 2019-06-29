@@ -233,7 +233,7 @@ Este proyecto podría considerarse que está utilizando una organización monore
 
 Para organizar nuestro proyecto he utilizado Git como control de versiones y GitHub como repositorio remoto.
 
-Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS, que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear y organizar dichas tareas repetitivas para poder ejecutarlas desde una terminal o poder automatizar los builds y la ejecución de test de una forma organizada y relativamente sencilla. 
+Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS, que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear y organizar dichas tareas repetitivas para poder ejecutarlas desde una terminal o poder automatizar los builds y la ejecución de test de una forma organizada y relativamente sencilla.
 
 ![Logotipo de gulp](images/gulp.png){#fig:gulp .class width=1.5cm}
 
@@ -247,9 +247,9 @@ En la raíz del repositorio se encuentran los scripts más generales para compil
 
 - Ionic: Ionic-cli + npm + Node
 
-Al final el proposito de gulp, es llamar a los scripts correspondientes para hacer las builds y los test de cada proyecto independiente de nuestro repositorio, y organizar todos los ficheros compilados en una unica carpeta `build/` en la que se encontrará nuestra aplicación final. 
+Al final el proposito de gulp, es llamar a los scripts correspondientes para hacer las builds y los test de cada proyecto independiente de nuestro repositorio, y organizar todos los ficheros compilados en una unica carpeta `build/` en la que se encontrará nuestra aplicación final.
 
-En definitiva, con gulp creamos un conjunto de scripts que nos abstrae en cierta medida de tener que utilizar angular-cli, ionic-cli, maven, etc. De esta forma se puede ejecutar, compilar o hacer test de nuestra aplicación con un solo comando desde la carpeta raíz. Para ejecutar gulp, necesitamos node y npm, por lo que en la carpeta raíz de nuestro proyecto, tenemos en un fichero `package.json` definidos todos los scripts necesarios para nuestro proyecto. 
+En definitiva, con gulp creamos un conjunto de scripts que nos abstrae en cierta medida de tener que utilizar angular-cli, ionic-cli, maven, etc. De esta forma se puede ejecutar, compilar o hacer test de nuestra aplicación con un solo comando desde la carpeta raíz. Para ejecutar gulp, necesitamos node y npm, por lo que en la carpeta raíz de nuestro proyecto, tenemos en un fichero `package.json` definidos todos los scripts necesarios para nuestro proyecto.
 
 Por ejemplo para instalar las dependencias y ejecutar el servidor, solo es necesario ejecutar:
 
@@ -307,7 +307,7 @@ docker exec -it crecorder-dev_teacher-pc-server_1 /bin/bash
 code class-recorder
 ```
 
-Esto le abrirá un VSCode con todo listo para programar, hacer builds, testing, etc. No es necesario instalar absolutamente nada, el script `docker_run.sh` ejecuta un `docker compose` descargando las imagenes necesarias para desarrollar. El único inconveniente que puede tener esta solución es el tamaño final de la imagen (7.44 GB). Incluso se puede conectar un dispositivo Android y este sería detectado perfectamente ya que la imagen comparte los dispositivos usb y lleva incorporada una version de Android SDK y ADB. 
+Esto le abrirá un VSCode con todo listo para programar, hacer builds, testing, etc. No es necesario instalar absolutamente nada, el script `docker_run.sh` ejecuta un `docker compose` descargando las imagenes necesarias para desarrollar. El único inconveniente que puede tener esta solución es el tamaño final de la imagen (7.44 GB). Incluso se puede conectar un dispositivo Android y este sería detectado perfectamente ya que la imagen comparte los dispositivos usb y lleva incorporada una version de Android SDK y ADB.
 
 He podido comprobar la utilidad de dockerizar el entorno de desarrollo. Cambiar entre ordenadores con Ubuntu no me requería de ningún tipo de instalación ni configuración previa, tan solo tener docker instalado, lo cual también me permitió cambiar entre entornos de desarrollo facilmente.
 
@@ -350,7 +350,7 @@ git clone https://github.com/cruizba/TFG-Class-Recorder
 
 cd TFG-Class-Recorder
 
-docker run -itv $(pwd):/home/userdocker/tfg --entrypoint "/usr/bin/node" \
+docker run -it -v $(pwd):/home/userdocker/tfg --entrypoint "/usr/bin/node" \
 -p 3000:3000 cruizba/markdown-to-latex-book server.js
 ```
 
@@ -374,7 +374,7 @@ Entonces decidí usar electron para la aplicación Electron[^5].
 
 ![Logotipo de Electron](images/electron-icon.png){#elec-image .class width=4cm}
 
-Electron es una tecnología que nos permite empaquetar aplicaciones web como si fueran aplicaciones de escritorio y ofrece una modelo que nos permite interactuar con el sistema operativo, los ficheros, las notificaciones... para poder crear aplicaciones nativas con tecnologías web. 
+Electron es una tecnología que nos permite empaquetar aplicaciones web como si fueran aplicaciones de escritorio y ofrece una modelo que nos permite interactuar con el sistema operativo, los ficheros, las notificaciones... para poder crear aplicaciones nativas con tecnologías web.
 
 Hablaremos más en detalle sobre como se empaqueta la aplicación en la sección \ref{dis_e_imp}
 
@@ -385,7 +385,7 @@ Hablaremos más en detalle sobre como se empaqueta la aplicación en la sección
 
 En la secciones anteriores hemos explicado las tecnologías que hemos utilizado y como hemos configurado el entorno de desarrollo, de CI y la metodología que estamos utilizando. En las siguientes secciones nos centraremos más en lo que es el desarrollo de la apliación en si misma.
 
-Primero se hará una descripción de los requisitos funcionales y no funcionales, posteriormente se describirá de forma detallada la arquitectura y como se comunicarán los diferentes componentes de nuestra aplicación. 
+Primero se hará una descripción de los requisitos funcionales y no funcionales, posteriormente se describirá de forma detallada la arquitectura y como se comunicarán los diferentes componentes de nuestra aplicación.
 
 Posteriormente se ahondará a nivel de código y de diseño como se han implementado las partes más complejas de la aplicación.
 
@@ -467,7 +467,7 @@ La aplicación móvil debe poder ejecutarse en Android, pero ofrecer la posibili
 
 En la siguiente sección haremos un previo análisis de los requisitos anteriormente mencionados, para poder definir una arquitectura y definir los distintos componentes de nuestra aplicación final.
 
-Previamente a la implementación es necesario hacer un análisis de algunos de los requisitos y abstraer dichas necesidades para poder plantear la arquitectura de nuestra aplicación. A continuación se describen algunas características que nos llevan a pensar en la arquitectura que se va a plantear: 
+Previamente a la implementación es necesario hacer un análisis de algunos de los requisitos y abstraer dichas necesidades para poder plantear la arquitectura de nuestra aplicación. A continuación se describen algunas características que nos llevan a pensar en la arquitectura que se va a plantear:
 
 1. Debe ser una aplicación de escritorio que permita editar los videos. (Requisito funcional 1, 2 y 3; Requisito no funcional 1, 2)
 
@@ -485,17 +485,17 @@ A continuación, vamos a ir creando nuestra arquitectura a partir de los puntos 
 
 1. Para cumplir el punto 1 de la lista anterior, crearemos una aplicación web con su parte backend en Spring boot y Java; y su parte Frontend en Angular. Todo ello finalmente será empaquetado en un electron con ffmpeg y la JVM. Esta parte de la arquitectura se corresponde con el componente de color rojo de la Figura \ref{classrecarch}
 
-2. Con respecto al punto 2, otra parte de la arquitectura se correspondería con una aplicación móvil desarrollada con Ionic. Esto se corresponde con el componente azul de la Figura \ref{classrecarch} 
+2. Con respecto al punto 2, otra parte de la arquitectura se correspondería con una aplicación móvil desarrollada con Ionic. Esto se corresponde con el componente azul de la Figura \ref{classrecarch}
 
 3. Para poder cumplir con los puntos 2 y 3 en lo respectivo a la grabación, el servidor, el frontend del ordenador personal en Angular y el móvil se comunicarán a través de websockets en red local, de tal modo que tanto el móvil como el servidor se comunicarán para controlar la grabación, llevando el servidor la gestion de la misma, y haciendo los frontend peticiones vía websocket para controlar la grabación. Se puede ver en la Figura \ref{classrecarch} como tanto servidor como aplicación móvil están ambos están en la misma red local.
 
-4. En cuanto al punto 4, utilizaremos por el momento una base de datos con persistencia de ficheros H2, pero en el futuro podría perfectamente sustituirse por otra base de datos gracias a la abstracción que nos aporta Spring Data y Hibernate. 
+4. En cuanto al punto 4, utilizaremos por el momento una base de datos con persistencia de ficheros H2, pero en el futuro podría perfectamente sustituirse por otra base de datos gracias a la abstracción que nos aporta Spring Data y Hibernate.
 
 5. Para subir los videos y cumplir con el punto 5, utilizaremos la API de Youtube.
 
 ![Arquitectura Class Recorder](images/class-recorder-arch.png){#classrecarch}
 
-Puede ser que el lector se haya dado cuenta, de que la arquitectura de desarrollo mostrada en la Figura \ref{ci-cd-env} es bastante más compleja que la de la Figura \ref{classrecarch}. Esto se debe a que verdaderamente es mucho más sencillo el entorno de producción que el de desarrollo, porque podemos prescindir de muchas herramientas y porque compartir servicios del sistema operativo Host con docker complicaba mucho las cosas. Decidimos utilizar Electron en vez de Docker para distribuir la aplicación, por el hecho de que también era preferible que la aplicación fuera lo más independiente posible y porque evitaba posibles errores de configuración y facilitaba las cosas al usuario no experto. 
+Puede ser que el lector se haya dado cuenta, de que la arquitectura de desarrollo mostrada en la Figura \ref{ci-cd-env} es bastante más compleja que la de la Figura \ref{classrecarch}. Esto se debe a que verdaderamente es mucho más sencillo el entorno de producción que el de desarrollo, porque podemos prescindir de muchas herramientas y porque compartir servicios del sistema operativo Host con docker complicaba mucho las cosas. Decidimos utilizar Electron en vez de Docker para distribuir la aplicación, por el hecho de que también era preferible que la aplicación fuera lo más independiente posible y porque evitaba posibles errores de configuración y facilitaba las cosas al usuario no experto.
 
 Es necesario mencionar, que no utilizamos para nada la API de Electron para hacer operaciones con el sistema. Electron no es necesario en ningun momento para el desarrollo, todo el trabajo de ficheros y llamadas al sistema las realiza el servidor de Spring, y utilizamos Electron sólo para empaquetar la aplicación.
 
@@ -505,9 +505,9 @@ En la siguiente sección explicaremos el diseño de dos módulos independientes 
 
 **Ffmpeg Wrapper**
 
-En la parte de tecnologías (Sección \ref{server_tech}) comentabamos el uso de Ffmpeg. Esta herramienta es multiplataforma pero si se quiere utilizar para la grabación del escritorio del PC y del audio del micrófono, difieren los comandos correspondientes en cada sistema operativo. 
+En la parte de tecnologías (Sección \ref{server_tech}) comentabamos el uso de Ffmpeg. Esta herramienta es multiplataforma pero si se quiere utilizar para la grabación del escritorio del PC y del audio del micrófono, difieren los comandos correspondientes en cada sistema operativo.
 
-Para ello crearemos un módulo desacoplado de la lógica de nuestro servidor que nos permita lanzar comandos a ffmpeg de forma agnóstica al sistema operativo en el que se utilice, para poder posteriormente acloparlo a nuestro servidor. Vamos a crear un wrapper limitado a esta funcionalidad de Ffmpeg. 
+Para ello crearemos un módulo desacoplado de la lógica de nuestro servidor que nos permita lanzar comandos a ffmpeg de forma agnóstica al sistema operativo en el que se utilice, para poder posteriormente acloparlo a nuestro servidor. Vamos a crear un wrapper limitado a esta funcionalidad de Ffmpeg.
 
 Ya existian previamente wrappers de Ffmpeg para Java, pero estaban algo desactualizados y además no ofrecían la funcionalidad suficiente como para poder ejecutar en distintos sistemas operativos diferentes.
 
@@ -565,9 +565,9 @@ El diagrama entidad relación es el de la Figura \ref{er_diagram} y son las sigu
 
 Los videos grabados sin subir a la plataforma de youtube, son representados por ficheros en una carpeta a elegir por el usuario.
 
-### Diagrama de secuencia de una grabación.
+### Diagrama de secuencia de una grabación.{#diagram_record}
 
-En esta sección vamos a explicar dos posibles casos de uso en los que se puede utilizar esta aplicación y como se realiza esto secuencialmente para cada uno de los dos casos. Si el profesor quiere grabar el audio del micrófono del PC deberá comenzar la grabación desde el mismo PC, y del mismo modo si quiere grabar el escritorio del ordenador y grabar el audio desde el móvil deberá iniciar la grabación desde la aplicación móvil. 
+En esta sección vamos a explicar dos posibles casos de uso en los que se puede utilizar esta aplicación y como se realiza esto secuencialmente para cada uno de los dos casos. Si el profesor quiere grabar el audio del micrófono del PC deberá comenzar la grabación desde el mismo PC, y del mismo modo si quiere grabar el escritorio del ordenador y grabar el audio desde el móvil deberá iniciar la grabación desde la aplicación móvil.
 
 El diagrama de secuencia del primer caso es el siguiente.
 
@@ -619,9 +619,9 @@ En esta seccion se explicará con más detalle como se han implementado los modu
 Para simplificar el proceso de grabación, se ha aplicado el principio de responsabilidad única, creando para cada sistema operativo, una clase muy simple que simplemente ejecuta comandos Ffmpeg a partir de unos parámetros y la clase `FfmpegWrapper.java` controla el proceso de grabación de forma agnóstica al sistema. Para entender como funciona el Wrapper de Ffmpeg tenemos que echar un vistazo al constructor de la clase `FfmpegWrapper.java`.
 
 ```java
-public FfmpegWrapper(Path ffmpegOutput, 
+public FfmpegWrapper(Path ffmpegOutput,
                     String x11device,
-                    String ffmpegDirectory) 
+                    String ffmpegDirectory)
                     throws OperationNotSupportedException, IOException {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     this.os = System.getProperty("os.name");
@@ -665,7 +665,7 @@ ffmpeg.setAudioFormat(FfmpegAudioFormat.libvorbis)
 ffmpeg.startRecordingVideoAndAudio();
 ```
 
-Como vemos, solo necesitamos  configurar una serie de parámetros al principio, especificar el formato de audio y de video que se va a utilizar, el formato de cotenedor, el framerate, el directorio donde guardar los videos y el nombre del video. Posteriormente podríamos ejecutar la última instrucción y ffmpeg comenzaría a grabar. 
+Como vemos, solo necesitamos  configurar una serie de parámetros al principio, especificar el formato de audio y de video que se va a utilizar, el formato de cotenedor, el framerate, el directorio donde guardar los videos y el nombre del video. Posteriormente podríamos ejecutar la última instrucción y ffmpeg comenzaría a grabar.
 
 ¿Cuales son los comandos que lanza cada método? Las implementaciones de los comandos concretos se encuentran en las clases: `ICommandWindows.java` y `ICommandLinux.java`  Vamos a explicar los tres comandos más importantes implementados de la clase `ICommandLinux.java`
 
@@ -678,9 +678,9 @@ ffmpeg -f x11grab -framerate 60 -s 1366x768 -i :0 \
 /home/user/test.mkv
 ```
 
-Los parámetros del siguiente comando son los siguientes: 
+Los parámetros del siguiente comando son los siguientes:
 
-- `-f`: Formato de entrada. En este caso especificamos que el formato es `x11grab` ya que proviene del servidor de ventanas x11 en Linux.  Para el audio en Linux especificamos alsa. 
+- `-f`: Formato de entrada. En este caso especificamos que el formato es `x11grab` ya que proviene del servidor de ventanas x11 en Linux.  Para el audio en Linux especificamos alsa.
 
 - `-framerate`: Frames por segundos capturados. Esta opción es parametrizable desde el método.
 
@@ -688,7 +688,7 @@ Los parámetros del siguiente comando son los siguientes:
 
 - `-i`: Input de video. Especificamos `:0`para que obtenga la salida por defecto de video del servidor de ventanas de x11.  En el caso del audio ponemos `default` para que coja el micrófono configurado por defecto en el sistema.
 
-- `-vcodec`: Codec de video con el que se guardará el video. En este caso h264. 
+- `-vcodec`: Codec de video con el que se guardará el video. En este caso h264.
 
 - `-acodec`: Formato de audio. En este caso mp3.
 
@@ -704,7 +704,7 @@ Los parámetros del siguiente comando son los siguientes:
 
 Tras muchas pruebas, este fue el comando que mejores resultados se obtuvieron midiendo calidad y procesamiento, aunque en un futuro dichos parámetros pueden ser configurables.
 
-En el caso de Windows el comando es similar, solo cambian los parametros de entrada y de formato. 
+En el caso de Windows el comando es similar, solo cambian los parametros de entrada y de formato.
 
 **Cortar video**: Se utiliza el método `executeFfmpegCutVideo()`. Al igual que el comando anterior, este comando es un ejemplo concreto ejecutado por la aplicación:
 
@@ -716,7 +716,7 @@ ffmpeg -i <directory-videos>/video_to_cut.mkv \
 -ss 00:00:29 -to 00:00:34 \
 <directory-temp-class-recorder>/temp/out1.mkv -acodec copy \
 -ss 00:00:36 -to 00:00:37 \
-<directory-temp-class-recorder>/temp/out2.mkv 
+<directory-temp-class-recorder>/temp/out2.mkv
 ```
 
 Este comando a grandes rasgos es similar al anterior, lo unico distinto es la entrada que es el video a cortar, y que por cada segmento de video que se quiere cortar, se introducen los siguientes parámetros:
@@ -736,7 +736,7 @@ ffmpeg -f concat -i <directory-temp-class-recorder>/temp/files.txt \
 -c copy <directory-videos>/test_cutted.mkv
 ```
 
-A partir de un fichero de texto que se habrá creado con anterioridad en  una carpeta temporal especificada se generará un video con los videos unidos juntados en uno único. 
+A partir de un fichero de texto que se habrá creado con anterioridad en  una carpeta temporal especificada se generará un video con los videos unidos juntados en uno único.
 
 ### Implementación módulo Youtube
 
@@ -760,13 +760,67 @@ youtube.uploadVideo(videoInfo);
 
 Como vemos la forma de inicializar el módulo es bastante similar al del wrapper de ffmpeg. Simplemente le pasamos los parametros necesarios para subir el video y ejecutamos la última instrucción.
 
-### Inyección de los módulos como servicios en Spring Boot
+### Inyección de los módulos como servicios en Spring Boot.
 
-Los dos módulos descritos con anterioridad, de por sí, son independientes de cualquier framework y podrían ser utilizados en cualquier proyecto de Java 8. Pero en nuestro caso, tenemos que proporcionar la funcionalidad de estos módulos como servicios en una aplicación de Spring Boot. Para ello tenemos que hacer uso de la inyección de dependencias de Spring y la configuración de los Beans.
+Los dos módulos descritos con anterioridad, de por sí, son independientes de cualquier framework y podrían ser utilizados en cualquier proyecto de Java 8. Pero en nuestro caso, tenemos que proporcionar la funcionalidad de estos módulos como servicios en una aplicación de Spring Boot. Para ello tenemos que hacer uso de la inyección de dependencias de Spring y la configuración de los Beans. 
+
+Lo que hemos hecho ha sido crear para cada uno de los dos módulos un `@Service` que contiene una instancia ya creada del propio módulo en el mismo servicio. En la Figura \ref{arch_spring_boot} se puede ver a grandes rasgos la estructura de la aplicación en Spring Boot.
+
+![Estructura servidor Spring boot](images/spring-boot-services.png){#arch_spring_boot .class width=10cm}
+
+Como podemos ver tanto los controladores como los websockets harán uso de los Servicios que a su vez integrarán los dos módulos mencionados anteriormente.
+
+Para que Spring se encargue de inicializar nuestros módulos creamos ambos servicios de esta forma:
+
+```java
+@Service
+public class FfmpegService {
+
+	private FfmpegWrapper ffmpegWrapper;
+
+	public FfmpegService(Path ffmpegOutput, String x11device, String ffmpegDirectory) throws OperationNotSupportedException, IOException {
+		this.ffmpegWrapper = new FfmpegWrapper(ffmpegOutput, x11device, ffmpegDirectory);
+	}
+	
+    public FfmpegService setContainerVideoFormat(FfmpegContainerFormat videoFormat) {
+		ffmpegWrapper.setVideoContainerFormat(videoFormat);
+		return this;
+	}
+
+	public FfmpegService setFrameRate(int frameRate) {
+		ffmpegWrapper.setFrameRate(frameRate);
+		return this;
+	}
+	...
+```
+
+Lo que hacemos es inicializar el módulo en el constructor y crear un método para cada uno de los métodos existentes en ese módulo. De esta forma podemos utilizar los módulos a modo de servicios en los controladores y websockets. La implementación del servicio de Youtube es similar en concepto. Inicializamos ambos servicios con la notación `@Bean`. Los Beans son objetos que maneja el contenedor de Spring y los declaramos ambos de la siguiente manera:
+
+```java
+@Bean
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public YoutubeService youtubeService() throws YoutubeApiException {
+    return new YoutubeService(properties);
+}
+
+@Bean
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public FfmpegService ffmpegService() throws OperationNotSupportedException, 
+                                            IOException {
+    return new FfmpegService(classRecProperties.getOutputFfmpeg(), 
+    System.getenv("DISPLAY"), classRecProperties.getFfmpegDirectory());
+}
+```
+
+Ambos los declaramos como Singleton ya que el servidor es una única instancia que es ejecutada en el ordenador del profesor. Además el servicio de grabación está preparado para realizar las grabaciones en una sola máquina ya que es su cometido, y la mejor opción es tener una única instancia del servicio de grabación para controlar en todo momento el proceso de manera adecuada.
 
 [^6]: https://developers.google.com/youtube/v3/code_samples/java?hl=es-419
 
 ### Websocket controlando el wrapper de Ffmpeg y metadatos para los cortes. {#ws_and_cuts}
+
+Como sabemos de la sección \ref{diagram_record} donde explicabamos la comunciación de los distintos componentes de la arquitectura de nuestra aplicación, necesitamos que tanto la aplicación web ejecutada desde el ordenador del profesor, como la aplicación móvil, sean capaces de iniciar, parar y pausar las grabaciones. Para ello debemos echar mano de los websockets. Los websockets permiten una comunicación bidireccional continua full-duplex, entre uno o varios clientes y un servidor. De esta forma, podemos notificar de eventos a todos los dispositivos que se conecten a nuestro servidor a través de websockets, pudiendo notificar a todas las aplicaciones el estado de la grabación.
+
+
 
 \pagebreak
 &nbsp;
