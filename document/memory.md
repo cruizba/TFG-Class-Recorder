@@ -266,7 +266,7 @@ En el Anexo 1 se puede ver además de una guía de configuración para el entorn
 
 Como sistema de CI/CD hemos utilizado travis. El sistema de CI/CD podría perfectamente ejecutarse en travis sin Docker, pero para tener un mayor control de las versiones que utilizamos, las configuraciones del sistema y tener un sistema en el que desarrollar homogéneo, decidimos utilizar Docker. En la siguiente sección explicaremos en más detalle cómo está montado el sistema de CI/CD junto con el uso de Docker.
 
-## Entorno de desarrollo y de integración continua completamente dockerizado.
+## Entorno de desarrollo y de integración continua completamente dockerizado.{#ci_intro}
 
 Al desarrollar este proyecto me encontré con ciertas problemáticas. Una de ellas es la tediosidad de configurar todo el entorno para ponerse a desarrollar, y más teniendo en cuenta la utilización de ffmpeg y la instalación de Android SDK para poder crear la aplicación de Ionic. En los momentos en los que desarrollaba esta aplicación, tenía a mi disposición varios ordenadores, y tenía que configurarlos todos para poder desarrollar o corregir un simple bug. Si tenía un ordenador en la oficina, ¿por qué tenía que llevarme el portátil?. Si tenía un problema con el sistema, tenía que reconfigurar todo el entorno, y quería poder tener un sistema universal para poder desarrollar en cualquier ordenador que tuviera a mano.
 
@@ -334,9 +334,9 @@ Pero markdown de por sí, como lenguaje de marcado se quedaba un poco corto. Nec
 Así, con Pandoc y Markdown podemos hacer de forma muy sencilla cosas como:
 
 - Añadir una citación poniendo su id junto con un `@`:
-  
+
   `@id_citacion`
-  
+
   Todas las referencias pueden ir organizadas en un fichero .bib y tan solo es necesario poner la referencia para que se autogenere en la bibliografía.
 
 - Numerar títulos automáticamente y generar tablas de contenido con sintaxis especifica de markdown.
@@ -618,7 +618,7 @@ En esta seccion se explicará con más detalle como se han implementado los modu
 
 Para simplificar el proceso de grabación, se ha aplicado el principio de responsabilidad única, creando para cada sistema operativo, una clase muy simple que simplemente ejecuta comandos Ffmpeg a partir de unos parámetros y la clase `FfmpegWrapper.java` controla el proceso de grabación de forma agnóstica al sistema. Para entender como funciona el Wrapper de Ffmpeg tenemos que echar un vistazo al constructor de la clase `FfmpegWrapper.java`.
 
-```java
+```{.java .numberLines}
 public FfmpegWrapper(Path ffmpegOutput,
                     String x11device,
                     String ffmpegDirectory)
@@ -652,7 +652,7 @@ Como se puede observar en las líneas 9 y 10 cogemos las dimensiones de la panta
 
 Instanciar esta clase es realmente sencillo. Solo es necesario introducir las siguientes instrucciones:
 
-```java
+```{.java .numberLines}
 FfmpegWrapper ffmpeg = new FfmpegWrapper();
 
 ffmpeg.setAudioFormat(FfmpegAudioFormat.libvorbis)
@@ -746,7 +746,7 @@ Así pues hemos seguido un ejemplo de la api[^6] y lo hemos adaptado a nuestras 
 
 Lo unico necesario para instanciar esta clase y subir un vídeo son las siguientes instrucciones:
 
-```java
+```{.java .numberLines}
 YoutubeUploader youtube = new YoutubeUploader();
 
 YoutubeVideoInfo videoInfo = new YoutubeVideoInfo();
@@ -762,7 +762,7 @@ Como vemos la forma de inicializar el módulo es bastante similar al del wrapper
 
 ### Inyección de los módulos como servicios en Spring Boot.
 
-Los dos módulos descritos con anterioridad, de por sí, son independientes de cualquier framework y podrían ser utilizados en cualquier proyecto de Java 8. Pero en nuestro caso, tenemos que proporcionar la funcionalidad de estos módulos como servicios en una aplicación de Spring Boot. Para ello tenemos que hacer uso de la inyección de dependencias de Spring y la configuración de los Beans. 
+Los dos módulos descritos con anterioridad, de por sí, son independientes de cualquier framework y podrían ser utilizados en cualquier proyecto de Java 8. Pero en nuestro caso, tenemos que proporcionar la funcionalidad de estos módulos como servicios en una aplicación de Spring Boot. Para ello tenemos que hacer uso de la inyección de dependencias de Spring y la configuración de los Beans.
 
 Lo que hemos hecho ha sido crear para cada uno de los dos módulos un `@Service` que contiene una instancia ya creada del propio módulo en el mismo servicio. En la Figura \ref{arch_spring_boot} se puede ver a grandes rasgos la estructura de la aplicación en Spring Boot.
 
@@ -772,7 +772,7 @@ Como podemos ver tanto los controladores como los websockets harán uso de los S
 
 Para que Spring se encargue de inicializar nuestros módulos creamos ambos servicios de esta forma:
 
-```java
+```{.java .numberLines}
 @Service
 public class FfmpegService {
 
@@ -781,7 +781,7 @@ public class FfmpegService {
 	public FfmpegService(Path ffmpegOutput, String x11device, String ffmpegDirectory) throws OperationNotSupportedException, IOException {
 		this.ffmpegWrapper = new FfmpegWrapper(ffmpegOutput, x11device, ffmpegDirectory);
 	}
-	
+
     public FfmpegService setContainerVideoFormat(FfmpegContainerFormat videoFormat) {
 		ffmpegWrapper.setVideoContainerFormat(videoFormat);
 		return this;
@@ -796,7 +796,7 @@ public class FfmpegService {
 
 Lo que hacemos es inicializar el módulo en el constructor y crear un método para cada uno de los métodos existentes en ese módulo. De esta forma podemos utilizar los módulos a modo de servicios en los controladores y websockets. La implementación del servicio de Youtube es similar en concepto. Inicializamos ambos servicios con la notación `@Bean`. Los Beans son objetos que maneja el contenedor de Spring y los declaramos ambos de la siguiente manera:
 
-```java
+```{.java .numberLines}
 @Bean
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public YoutubeService youtubeService() throws YoutubeApiException {
@@ -805,9 +805,9 @@ public YoutubeService youtubeService() throws YoutubeApiException {
 
 @Bean
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-public FfmpegService ffmpegService() throws OperationNotSupportedException, 
+public FfmpegService ffmpegService() throws OperationNotSupportedException,
                                             IOException {
-    return new FfmpegService(classRecProperties.getOutputFfmpeg(), 
+    return new FfmpegService(classRecProperties.getOutputFfmpeg(),
     System.getenv("DISPLAY"), classRecProperties.getFfmpegDirectory());
 }
 ```
@@ -820,13 +820,275 @@ Ambos los declaramos como Singleton ya que el servidor es una única instancia q
 
 Como sabemos de la sección \ref{diagram_record} donde explicabamos la comunciación de los distintos componentes de la arquitectura de nuestra aplicación, necesitamos que tanto la aplicación web ejecutada desde el ordenador del profesor, como la aplicación móvil, sean capaces de iniciar, parar y pausar las grabaciones. Para ello debemos echar mano de los websockets. Los websockets permiten una comunicación bidireccional continua full-duplex, entre uno o varios clientes y un servidor. De esta forma, podemos notificar de eventos a todos los dispositivos que se conecten a nuestro servidor a través de websockets, pudiendo notificar a todas las aplicaciones el estado de la grabación.
 
+Una pregunta que puede tener el lector ahora es, ¿Por qué Websockets? Con los WebSockets evitamos por ejemplo hacer *polling* de peticiones al servidor para saber cierto dato, el servidor puede enviar información a los clientes sin necesidad de que el dispositivo cliente realice una petición http.
 
+Para esta aplicación necesitaremos implementar tres websockets, que serán los siguientes:
 
-\pagebreak
-&nbsp;
-\newpage
+- Grabación: Todos los controles de grabación serán controlados a traves de un websocket.
+- Procesamiento de la información. Crearemos un websocket para enviar la sálida de Ffmpeg al Frontend, para corroborar su correcto funcionamiento.
+- Progreso subida de Youtube: La información acerca del progreso durante una subida de un video a Youtube, también será enviada por websockets.
+
+Para ello primero tenemos que hacer que Spring tenga habilitada una ruta por la cual conectarse a este Websocket. Para ello creamos una clase aparte con la notación `@Configuration` para que Spring sepa que es una clase de configuración:
+
+```{.java .numberLines}
+@Configuration
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketConfigurer {
+
+  @Autowired
+  WebSocketRecordHandler recordPCHandler;
+
+  @Autowired
+  WebSocketProcessHandler processHandler;
+
+  @Autowired
+  WebSocketYoutubeUpload youtubeProgress;
+
+  @Override
+  public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+      registry.addHandler(recordPCHandler, "/recordpc").setAllowedOrigins("*");
+      registry.addHandler(processHandler, "/process/info").setAllowedOrigins("*");
+      registry.addHandler(youtubeProgress, "/youtube/progress").setAllowedOrigins("*");
+  }
+}
+```
+
+En esta clase inyectamos todas las clases que implementan la lógica de los Websockets y se los asignamos a la ruta específica para cada uno en el método `registerWebSocketHandlers()`. A continuación se va a explicar la implementación del WebSocket más importante de la aplicación: `WebSocketRecordHandler`
+
+**WebSocket grabación**
+
+En la parte del backend para crear el WebSocket de grabación hemos creado la siguiente clase:
+
+```{.java .numberLines}
+@Component
+public class WebSocketRecordHandler extends TextWebSocketHandler {
+
+  // Variable to save sessions connected
+  private List<WebSocketSession> sessions = new ArrayList<>();
+
+  //Recording Variables
+  private TimeCounter timeCounter = new TimeCounter();
+  private TimeCounterPause timeCounterforFrontends = new TimeCounterPause();
+  private boolean onPause = false;
+  private boolean mobileRecording;
+  private ArrayList<Cut> cuts = new ArrayList<>();
+  private String previousTime;
+  private String actualTime;
+  private String videoName;
+
+  @Autowired
+  private FfmpegService ffmpegService;
+
+  @Autowired
+  private ClassRecProperties classRecProperties;
+...
+}
+```
+
+Se pueden observar en las líneas 8-15 los diferentes atributos que utilizamos para controlar la grabación, saber en que estado se encuentra:
+
+- `timeCounter`: Se encarga de gestionar el tiempo de las pausas y grabaciones.
+- `timeCounterforFrontends`: Es un simple contador de tiempo para que todos los clientes tengan un contador de tiempo que pueda verse en pantalla.
+- `onPause`: True si la grabación está pausada.
+- `mobileRecording`: True si la grabación comenzó desde un móvil.
+- `cuts`: Lista con los cortes que lleva la grabación. Al finalizar la grabación se genera un fichero como el siguiente:
+  ```
+  {
+    "cuts": [
+      {
+        "start": "00:00:00",
+        "end": "00:03:10"
+      },
+      {
+        "start": "00:03:17",
+        "end": "00:03:50"
+      }
+    ]
+  }
+  ```
+  Este fichero indica las partes del video que deben ser procesadas. Cuando una grabación se pausa se genera un metadato con la información de inicio de ese corte y final de ese corte, para posteriormente poder cortar el vídeo automáticamente o editarlo a traves de la UI.
+  - `previousTime`: Variable de tiempo para controlar el punto último en que se realizó una acción de grabación, ya sea pausar o continuar.
+  - `actualTime`: Momento de tiempo actual.
+  - `videoName`: Nombre del video.
+
+Podemos ver también nuestro servicio de Ffmpeg en la línea 18 inyectado en el WebSocket que habíamos explicado en secciones anteriores. Ahora el WebSocket podrá utilizar este servicio, y el programador puede hacer llamadas a Ffmpeg sin preocuparse de ningun comando, y es gestionado el estado del proceso por el propio servicio.
+
+Uno de las atributos más importantes de esta clase que no hemos mencionado es el `sessions` de la linea 5. En este `ArrayList` de `WebSocketSession` guardamos todas las conexiones de los dispositivos cliente que intenten conectarse a la aplicación. La clase hereda de `TextWebSocketHandler` con el cual implementamos el siguiente método:
+
+```{.java .numberLines}
+@Override
+  public void afterConnectionEstablished(WebSocketSession session) throws IOException {
+    Gson gson = new Gson();
+    log.info(ConsMsg.CONNECTION_OK);
+    sessions.add(session);
+    String messageToSend = gson.toJson(
+      new WebSocketRecordMessageServer(ConsMsg.CONNECTION_OK, false),
+      WebSocketRecordMessageServer.class);
+    session.sendMessage(new TextMessage(messageToSend));
+  }
+```
+Este método es ejecutado cada vez que un cliente solicita una sesión de WebSocket en la ruta `/recordpc`. En la ejecución de este método guardamos en un Array dicha sesión para que por cada evento que suceda, enviarle información del estado de la grabación a todos los clientes conectados.
+
+Posteriormente definimos el metodo que controlará la grabación en función de los mensajes por WebSockets que reciba:
+
+```{.java .numberLines}
+@Override
+protected void handleTextMessage(WebSocketSession session, TextMessage message)
+                                    throws IOException {
+  Gson gson = new Gson();
+  WebSocketRecordMessageClient messageObjectClient = gson.fromJson(
+    message.getPayload(), WebSocketRecordMessageClient.class);
+  WebSocketRecordMessageServer messageObjectServer;
+  TextMessage messageToSend;
+  String action = messageObjectClient.getAction();
+  switch(action) {
+  case ConsMsg.REC_VID_AUD:
+    messageObjectServer = recordVideoAndAudio(messageObjectClient);
+    messageToSend = new TextMessage(gson.toJson(messageObjectServer,
+      WebSocketRecordMessageServer.class));
+    sendMessageToAllSenders(messageToSend);
+    break;
+  case ConsMsg.STOP:
+    messageObjectServer = stopRecording();
+    messageToSend = new TextMessage(gson.toJson(messageObjectServer,
+      WebSocketRecordMessageServer.class));
+    sendMessageToAllSenders(messageToSend);
+    break;
+  case ConsMsg.PAUSE:
+    messageObjectServer = pauseRecording();
+    messageToSend = new TextMessage(gson.toJson(messageObjectServer,
+      WebSocketRecordMessageServer.class));
+    sendMessageToAllSenders(messageToSend);
+    break;
+  case ConsMsg.CONTINUE:
+    messageObjectServer = continueRecording();
+    messageToSend = new TextMessage(gson.toJson(messageObjectServer,
+      WebSocketRecordMessageServer.class));
+    sendMessageToAllSenders(messageToSend);
+    break;
+  case ConsMsg.REC_VID:
+    messageObjectServer = recordVideo(messageObjectClient);
+    messageToSend = new TextMessage(gson.toJson(messageObjectServer,
+      WebSocketRecordMessageServer.class));
+    sendMessageToAllSenders(messageToSend);
+    break;
+  }
+}
+```
+
+En función de cada mensaje, se ejecutará un método correspondiente para la grabación. Como podemos ver hay 5 casos, los cuales, segun el método que ejecuten y el estado de los atributos, harán cortes, pararán la grabación, etc.
+Al final de cada caso, siempre enviamos a todos los clientes un mensaje con información del estado de la grabación en el método `sendMessageToAllSenders(messageToSend)`.
+
+Como son bastante los métodos que manejan la grabación en el `WebSocketRecordHandler` vamos a comentar el más importante: el método `recordVideoAndAudio(messageObjectClient)` que es llamado en la linea 12:
+
+```{.java .numberLines}
+private WebSocketRecordMessageServer recordVideoAndAudio(
+  WebSocketRecordMessageClient messageObject) {
+  if(ffmpegService.isFfmpegWorking()) {
+    return new WebSocketRecordMessageServer(ConsMsg.CANT_RECORD, true);
+  }
+  setConfigurationFfmpeg(messageObject);
+  timeCounter.restart();
+  timeCounterforFrontends.restart();
+  actualTime = timeCounter.getTimeCounter();
+  try {
+    ffmpegService.setDirectory(classRecProperties.getVideosFolder().toString());
+    ffmpegService.startRecordingVideoAndAudio();
+    return new WebSocketRecordMessageServer(ConsMsg.RECORDING, false);
+  } catch (IOException e) {
+    return new WebSocketRecordMessageServer(ConsMsg.IO_EXCEPTION
+      + " " + e.getMessage(), true);
+  } catch (FfmpegException e) {
+    return new WebSocketRecordMessageServer(ConsMsg.FFMPEG_EXCEPTION
+      + " " + e.getMessage(), true);
+  } catch (ICommandFileExistException e) {
+    return new WebSocketRecordMessageServer(ConsMsg.VIDEO_EXISTS_EXCEPTION, true);
+  } catch (ICommandException e) {
+    e.printStackTrace();
+    return new WebSocketRecordMessageServer(ConsMsg.ICOMMAND_EXCEPTION, true);
+  }
+}
+```
+
+Es muy importante tener en cuenta todos los posibles momentos en que podemos ejecutar la grabación de video. Es por eso que al principio en la línea 2 comprobamos si Ffmpeg está ya en ejecución y devolvemos el mensaje pertintente de error.
+Después configuramos el servicio de Ffmpeg en la línea 6 con el mensaje que ha enviado el cliente (el cual incluye el nombre del video, el framerate y el formato de vídeo). Reseteamos las variables de tiempo y comenzamos la grabación en la línea 12.
+
+Es importante mencionar que cualquier tipo de excepción devuelta por el servicio es controlada y enviada con su mensaje correspondiente para que todos los dispositivos reciban la causa del problema en caso de darse.
+
+En los clientes, la grabación es bastante sencilla de controlar. Como ambos hacen uso de Angular podemos incluso implementar el mismo servicio en el frontend de PC y el de Ionic (Aplicación móvil). El servicio implementado en ambos clientes es el siguiente:
+
+```{.ts .numberLines}
+@Injectable()
+export class WebSocketRecord {
+    public messages: Subject<string>;
+
+    constructor(private wsService: WebsocketRecordService) {
+        let WS_URL;
+        console.log(environment);
+        if (environment.production) {
+            WS_URL = `ws://${document.location.host}/recordpc`;
+        } else {
+            WS_URL = `${environment.webSocketUrl}/recordpc`;
+        }
+        this.messages = <Subject<string>>wsService
+            .connect(WS_URL)
+            .pipe(map((response: MessageEvent): string => {
+                const data = response.data;
+                return data;
+            })
+        );
+    }
+
+    sendMessage(msg: WebSocketRecordMessage) {
+        this.wsService.sendMessage(msg);
+    }
+}
+```
+
+De aquí es importante mencionar dos partes. Por un lado el método `sendMessage(msg: WebSocketRecordMessage)` el cual nos va a permitir enviar los mensajes necesarios para controlar las grabaciones. También hay que mencionar el atributo público `messages`, el cual es un Observable el cual está conectado al WebSocket. Cualquier componente de Angular que se suscriba a ese atributo recibira los mensajes de respuesta del servidor, con los cuales notificamos visualmente al usuario del estado de la grabación.
 
 ## Evaluación y pruebas
+
+En esta sección explicaremos en detalle las pruebas que se han realizado, manuales y automatizadas, y los pasos que se dan en cada commit subido a Github.
+
+Como hemos explicado en la sección \ref{ci_intro} todo el sistema de desarrollo y de pruebas está dockerizado.
+
+Hemos configurado travis para que ofrecta un servicio de travis:
+```
+services:
+  - docker
+  - mysql
+```
+Y ejecutamos un script que levanta todo el sistema y realiza los test
+```
+script:
+  - bash scripts_ci/travis.sh
+```
+
+El cual es el siguiente:
+```
+git clone https://github.com/Class-Recorder/docker-class-recorder
+cd docker-class-recorder/docker-runnables/crecorder-ci
+./docker_run.sh
+```
+
+El script `docker_run.sh` lo que hace es ejecutar todos los test en una imagen docker y preparar los ficheros en una carpeta concreta si todos los test se han realizado correctamente. Travis está configurado para subir los ejecutables de dicha release.
+
+```
+deploy:
+  provider: releases
+  api_key:
+    secure: <api_key>
+  file_glob: true
+  file: docker-class-recorder/docker-runnables/crecorder-ci/release/*
+  skip_cleanup: true
+  on:
+    tags: true
+```
+Al ejecutarse el script `docker_run.sh` todos los ficheros generados acaban en la carpeta `docker-class-recorder/docker-runnables/crecorder-ci/release/` y su contenido es subido como release en Github por cada tag realizada.
+
+Los test que se han realizado son de tipo e2e en el browser, con `protactor`. Aunque por el momento solo he sido capaz de automatizar los test del frontend a nivel de grabaciones. Las pruebas de móvil son pruebas manuales.
+
 
 \pagebreak
 &nbsp;
