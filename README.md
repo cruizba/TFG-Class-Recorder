@@ -9,4 +9,4 @@ docker run -it -v $(pwd):/home/userdocker/tfg --entrypoint "/usr/bin/node" \
 ```
 
 Edit the document `document/memory.md`. On save, a new `document/memory.pdf` will be generated.
-Enjoy writing Latex with Markdown
+Enjoy writing your URJC memory end-of-degree project in Latex with Markdown
