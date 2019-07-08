@@ -189,8 +189,6 @@ X se corresponde a la versión mayor (cambios grandes que modifican parte o gran
 
 [^1]: Es un tablero online donde se pueden crear, asignar y clasificar tareas, de tal modo que todo el equipo tiene una visión global del estado actual de desarrollo que se está creando.
 
-\pagebreak
-
 ## Lenguajes y frameworks utilizados para el desarrollo de la aplicación.
 
 La aplicación está formada por tres partes principales:
@@ -396,6 +394,7 @@ Entonces decidí usar Electron[^5] para la aplicación.
 
 Electron es una tecnología que nos permite empaquetar aplicaciones web como si fueran aplicaciones de escritorio y ofrece una modelo que nos permite interactuar con el sistema operativo, los ficheros, las notificaciones... para poder crear aplicaciones nativas con tecnologías web.
 
+\pagebreak
 &nbsp;
 \newpage
 
@@ -1128,6 +1127,10 @@ Al ejecutarse el script `docker_run.sh` todos los ficheros generados acaban en l
 
 Como la imagen docker que se ejecuta en Travis ya tiene incorporado una version del Android SDK, java, node, npm y cordova, puede compilar todas las partes de nuestro proyecto y producir las builds de forma automática. Todo es gestionado a través de los task escritos en el archivo `gulpfile.js` de la carpeta raíz y están definidos como scripts en el archivo `package.json` de la misma ruta.
 
+\pagebreak
+&nbsp;
+\newpage
+
 # Conclusiones y trabajos futuros
 
 Observando el presente trabajo en retrospectiva, se han conseguido abordar todos los objetivos planteados en un principio. Se ha abordado el problema de optimizar el tiempo empleado para grabar las clases y hemos creado un software que, siguiendo un flujo de trabajo, es capaz de grabar vídeos sin necesidad de editarlos.
@@ -1159,10 +1162,6 @@ Esta aplicación hoy por hoy solo permite grabar el escritorio y la voz provenie
 - Sincronizar la aplicación con una plataforma para distribuir vídeos de clases. La aplicación está realizada con la idea de poder ser extendida en un futuro y crear una aplicación web en la que subir los videos.
 
 - Añadir un mecanismo que nos permita descartar la ultima parte grabada. En ocasiones, al realizar tutoriales o impartir clases, hay una parte que queremos descartar, pero que ha sido grabada. Una posibilidad para resolver este problema es añadir un metadato que nos permita descartar la última parte grabada y que se pueda accionar desde la aplicación web de pc o desde la aplicación móvil.
-
-\pagebreak
-&nbsp;
-\newpage
 
 # Referencias
 
