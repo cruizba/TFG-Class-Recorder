@@ -1,4 +1,4 @@
-title Secuencia de grabación des
+title Secuencia de grabación desde PC
 Angular Frontend->Spring Boot Server:[WS] connect
 Spring Boot Server->Angular Frontend: [WS] Connected
 Ionic App->Spring Boot Server:[WS] connect

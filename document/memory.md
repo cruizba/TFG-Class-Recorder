@@ -13,7 +13,7 @@ date: 14 de Enero de 2018
 
 \begin{flushright}
 \textit{Dedico este trabajo a mis padres por su apoyo y dedicación,} \\
-\textit{a mis tutor de proyecto Micael Gallego,} \\
+\textit{a mi tutor de proyecto Micael Gallego,} \\
 \textit{y a todas los amigos que sin darme cuenta} \\
 \textit{han estado ahí}.
 \end{flushright}
@@ -23,25 +23,17 @@ date: 14 de Enero de 2018
 
 \tableofcontents
 
-\pagebreak
-&nbsp;
-\newpage
-
-\pagebreak
-&nbsp;
-\newpage
-
 # Resumen {-}
 
-A lo largo del presente proyecto, se expondrá el desarrollado de la aplicación *Class Recorder*, la cual, su premisa y objetivo principal, es optimizar el tiempo invertido en la grabación, edición y distribución de clases impartidas con un ordenador.
+A lo largo del presente proyecto, se expondrá el desarrollado de la aplicación *Class Recorder*, cuya premisa y objetivo principal, es optimizar el tiempo invertido en la grabación, edición y distribución de clases impartidas con un ordenador.
 
-En el primer y segundo capítulo expondremos el problema general que se presenta en la actualidad, y que proponemos nosotros con nuestra aplicación, y un flujo de trabajo con el que mejorarlo a través de esta.
+En el primer y segundo capítulo expondremos el problema general que se presenta en la actualidad sin el uso de *Class Recorder*, y la solución que proponemos nosotros con nuestra aplicación, y un flujo de trabajo con el que mejorarlo a través de esta.
 
-En el tercer capítulo expondremos las tecnologías, herramientas y metodologías aplicadas al proyecto, donde mencionaremos también una técnica que hemos utilizado para realizar el proyecto automatizando la configuración del entorno de desarrollo y como se ha escrito esta memoria utilizando Markdown. Mencionaremos por supuesto las tecnologías también aplicadas al proyecto principal, por qué hemos escogido Spring Boot, Angular, Ffmpeg, Ionic y que ventajas ofrece cada una con respecto a otras, etc.
+En el tercer capítulo expondremos las tecnologías, herramientas y metodologías aplicadas a *Class Recorder*, donde mencionaremos también una técnica que hemos utilizado para realizar el proyecto automatizando la configuración del entorno de desarrollo y cómo se ha escrito esta memoria utilizando Markdown. Mencionaremos por supuesto las tecnologías también aplicadas, por qué hemos escogido Spring Boot, Angular, Ffmpeg, Ionic y qué ventajas ofrece cada una con respecto a otras.
 
-En el cuarto capítulo correspondiente a la descripción informática ahondaremos en temas más técnicos e introduciremos en un primer lugar los requisitos previos de nuestra aplicación. A partir de esos requisitos, describiremos una arquitectura software y el diseño de las partes más importantes. Este diseño será posteriormente utilizado como base de abstracción para implementar nuestra aplicación. Las partes más importantes de ésta serán también explicadas en detalle a nivel de código. Por ultimo para finalizar este capítulo abordaremos que partes están testeadas de la aplicación.
+En el cuarto capítulo, correspondiente a la descripción informática, ahondaremos en temas más técnicos e introduciremos en un primer lugar los requisitos previos de *Class Recorder*. A partir de esos requisitos, describiremos una arquitectura software y el diseño de las partes más importantes. Este diseño será posteriormente utilizado como base de abstracción para implementar nuestra aplicación. Las partes más importantes de ésta serán también explicadas en detalle a nivel de código. Por último para finalizar este capítulo abordaremos qué partes están testeadas de la aplicación.
 
-Finalmente terminaremos con unas breves conclusiones sobre el proyecto obtenido y que líneas se pueden seguir a futuro para continuar mejorando la aplicación final.
+Finalmente terminaremos con unas breves conclusiones sobre el proyecto obtenido y que líneas se pueden seguir a futuro para continuar mejorando la aplicación *Class Recorder*.
 
 Al final del presente documento se incluyen también dos manuales, uno para los desarrolladores y otro para los usuarios finales de la aplicación.
 
@@ -59,38 +51,38 @@ Una de las ventajas que presenta realizar las presentaciones y las clases con un
 
 Sin embargo, grabar las clases, editarlas y ponerlas a disposición de los alumnos no es una tarea trivial. Requiere un tiempo que los profesores no pueden utilizar para la preparación del contenido de sus clases, pudiendo incluso influenciar en la calidad de las mismas. Para solventar este tiempo dedicado a la grabación, edición y publicación de las clases surge *Class Recorder*.
 
-A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes y profesores se encuentran a la hora de grabar sus clases, estudiaremos como mejorar las partes que mayor esfuerzo conllevan, a que usuarios esta enfocada está aplicación y se explicará a grandes rasgos el software presentado.
+A continuación, en los siguientes apartados de este capítulo, se abordarán los diferentes problemas con los que los docentes y profesores se encuentran a la hora de grabar sus clases, estudiaremos cómo mejorar las partes que mayor esfuerzo conllevan, a qué usuarios esta enfocada está aplicación y se explicará a grandes rasgos el software presentado.
 
 ## Contexto y estudio del problema
 
 Para entrar un poco en el contexto y la problemática a la hora de grabar estas clases con un ordenador, se va a exponer a continuación los problemas más comunes.
 
-Lo más importante al principio es preparar el contenido del curso o de la asignatura, como diapositivas, ejemplos, proyectos, etc. Esto supone un tiempo y esfuerzo necesario para que las clases tengan cierta calidad. El tiempo que dedique un profesor a la preparación del contenido de sus clases es directamente proporcional a la calidad de las mismas. Complementar entonces este esfuerzo grabando cada una de las sesiones impartidas, le otorga al curso más flexibilidad y le da la posibilidad a todo el alumnado de ir a su propio ritmo.
+Lo más importante, al principio, es preparar el contenido del curso o de la asignatura, como diapositivas, ejemplos, proyectos, etc. Esto supone un tiempo y esfuerzo necesario para que las clases tengan cierta calidad. El tiempo que dedique un profesor a la preparación del contenido de sus clases es directamente proporcional a la calidad de las mismas. Complementar entonces este esfuerzo grabando cada una de las sesiones impartidas, le otorga al curso más flexibilidad y le da la posibilidad a todo el alumnado de ir a su propio ritmo.
 
-El problema que surge a la hora de grabarlas, son en su mayor parte, debido a la multitud de herramientas de las que se disponen para grabar el contenido, y la distracción que provoca en el profesor el utilizarlas, reduciendo el tiempo dedicado a la enseñanza y la calidad de la lección. A esto hay que añadir el aprendizaje de dichas herramientas, las cuales suelen ser bastante complejas por lo general, con información excesiva acerca de los formatos de los vídeos, configuraciones de vídeo y audio, etc.
+El problema que surge a la hora de grabar las clases, es en su mayor parte, debido a la multitud de herramientas de las que se disponen para grabar el contenido, y la distracción que provoca en el profesor el utilizarlas, reduciendo el tiempo dedicado a la enseñanza y la calidad de la lección. A esto hay que añadir el aprendizaje de dichas herramientas, las cuales suelen ser bastante complejas por lo general, con información excesiva acerca de los formatos de los vídeos, configuraciones de vídeo y audio, etc.
 
 Otro aspecto que puede ser problemático, es la grabación del audio de las clases. En su mayor parte, las clases se imparten de pie, leyendo y explicando diapositivas, por lo que en algunas ocasiones el micrófono del ordenador se encuentra lejos de la fuente de voz, por lo que la calidad del audio tiende a empeorar a medida que nos alejamos del ordenador. Esto se suele solventar grabando el audio con un dispositivo móvil y después uniendo vídeo y audio, pero esto solo añadiría aún más carga de trabajo para producir el vídeo final.
 
-A esto hay que sumarle la edición de vídeo, desechar de este las partes irrelevantes, los descansos o interrupciones, etc. El profesor debe entonces aprender y elegir probablemente otra herramienta con la que editar dicho vídeo, contando con multitud de software (en muchas ocasiones de pago), que se utilizan de forma diferente, desviando el tema principal, que es enseñar. Además los vídeos tras editarlos, hay que renderizarlos y subirlos.
+A esto hay que sumarle la edición de vídeo, desechar de éste las partes irrelevantes, los descansos o interrupciones, etc. El profesor debe entonces aprender y elegir probablemente otra herramienta con la que editar dicho vídeo, contando con multitud de software (en muchas ocasiones de pago), que se utilizan de forma diferente, desviando el tema principal, que es enseñar. Además los vídeos tras editarlos, hay que renderizarlos y publicarlos.
 
-Al final nos encontramos con un proceso bastante tedioso, que lleva un aprendizaje detrás para el profesor bastante costoso, que le separa de su objetivo final: enseñar.
+Al final nos encontramos con un proceso bastante tedioso, que lleva un aprendizaje costoso para el profesor, que le separa de su objetivo final: enseñar.
 
 ## Motivaciones.
 
-La principal motivación es reducir toda esa carga de trabajo adicional, y optimizar al máximo el tiempo necesario para grabar las clases, mejorando además los problemas mencionados en el apartado anterior.
+La principal motivación es reducir toda esa carga de trabajo adicional, y optimizar al máximo el tiempo necesario para grabar las clases, mitigando además los problemas mencionados en el apartado anterior.
 
 Al final nos encontramos con que tenemos que reducir el consumo de tiempo y mejorar las siguientes tareas:
 
 - Aprendizaje de herramientas para grabación.
 - Grabación de audio por separado
 - Identificar zonas en las que realizar cortes en el vídeo o juntar vídeos.
-- Renderización y subida a una plataforma.
+- Renderización y subida a una plataforma para publicación.
 
 Hay que tener en cuenta que muchas de las herramientas que se utilizan comúnmente para la edición de vídeos y grabación de escritorio, son herramientas que abarcan muchos casos de uso, y que tienen funcionalidad extra, que el profesor no necesita conocer, y que pueden confundir a la hora de realizar los vídeos.
 
-Una posible solución es la unificación del flujo de trabajo, utilizando un software unicamente para la realización de las grabaciones y simplificando la edición y grabación de vídeo únicamente a lo necesario por un profesor para grabar sus clases. El proceso de grabación no consiste en la realización de un conjunto de pasos definidos ya que se debe elegir el software que se quiere utilizar y aprenderlo... Pero no hay un camino claro para alcanzar el objetivo concreto.
+Una posible solución es la unificación del flujo de trabajo, utilizando un software únicamente para la realización de las grabaciones y simplificando la edición y grabación de vídeo únicamente a lo necesario por un profesor para grabar sus clases. El proceso de grabación no consiste en la realización de un conjunto de pasos definidos ya que se debe elegir el software que se quiere utilizar y aprenderlo. Pero no hay un camino claro para alcanzar el objetivo concreto.
 
-La motivación principal de *Class Recorder* es acabar con esta fragmentación y unificar todo el proceso en uno solo, para facilitar todo el trabajo y crear una sola plataforma con la que poder grabar, editar y subir vídeos, restando el tiempo innecesario de edición y grabación proporcionando herramientas fáciles de usar y enfocadas a la tarea en cuestión. Son muchas opciones, para llegar al mismo objetivo, que es grabar nuestras clases de la forma más cómoda posible al mismo tiempo que maximizamos el tiempo dedicado a las clases.
+La motivación principal de *Class Recorder* es acabar con esta fragmentación y unificar todo el proceso en uno solo, para facilitar todo el trabajo y crear una sola plataforma con la que poder grabar, editar y publicar vídeos, restando el tiempo innecesario de edición y grabación proporcionando herramientas fáciles de usar y enfocadas a la tarea en cuestión. Son muchas opciones, para llegar al mismo objetivo, que es grabar nuestras clases de la forma más cómoda posible al mismo tiempo que maximizamos el tiempo dedicado a las clases.
 
 Queremos que el usuario pase de usar múltiples aplicaciones y herramientas, a que solo utilice una que esté enfocada exclusivamente en el objetivo principal del profesor y así poder distribuir sus clases de forma rápida y eficaz.
 
@@ -115,7 +107,7 @@ En la Figura \ref{proc_crecorder} podemos ver como se simplifica el proceso, uti
 
 En este proyecto proponemos una única solución para la realización de todo este proceso de grabación y distribución de clases. Es importante recalcar que nuestro objetivo principal y el propuesto con este proyecto es crear un único flujo de trabajo, mediante las siguientes herramientas software que hemos creado:
 
-- Aplicación de escritorio, con el que controlar (grabar, pausar), gestionar, cortar y subir los videos realizados.
+- Aplicación de escritorio, con la que controlar (grabar, pausar), gestionar, cortar y subir los videos realizados.
 - Aplicación móvil sincronizada con la aplicación de escritorio con la que controlar las grabaciones, grabar el audio y poder controlar las diapositivas.
 
 El usuario ya no tiene que elegir entre decenas de herramientas software incompatibles entre sistemas operativos. En este proyecto ofrecemos una aplicación compatible, tanto en Windows como en GNU/Linux, y esta preparada para en un futuro tener soporte para Mac OS como podremos ver en el apartado \ref{sec_arch_modules} del diseño de los módulos del servidor.
@@ -137,7 +129,7 @@ Si el profesor decide impartir la clase unicamente con el ordenador, unicamente 
 2. Crear un curso (elegirlo si ya esta creado).
 3. Iniciar grabación, unicamente poniendo un nombre para el vídeo, un framerate y un formato de contenedor (mkv, mp4).
 
-No es necesario configurar nada, en Windows y Ubuntu se detecta la pantalla principal y el micrófono por defecto. El profesor entonces podrá comenzar su charla o clase y podrá pausar el vídeo en los momentos que quiera. Se puede ver el flujo de trabajo más claramente.
+No es necesario configurar nada, en Windows y Ubuntu se detecta la pantalla principal y el micrófono por defecto. El profesor entonces podrá comenzar su charla o clase y podrá pausar el vídeo en los momentos que quiera.
 
 **Flujo de trabajo con ordenador y móvil**:
 
@@ -148,7 +140,9 @@ En muchas ocasiones la clase no se puede impartir sentado, es por eso que *Class
 3. Iniciar la App de *Class Recorder* y introducir nuestra IP local.
 4. Comenzar a grabar.
 
-Así de sencillo, y la app dispone de los mismos controles de grabación que la aplicación de escritorio. En el Anexo 2 se puede ver un manual completo de uso de la aplicación, donde se puede ver claramente los objetivos alcanzados.
+Así de sencillo, y la app dispone de los mismos controles de grabación que la aplicación de escritorio. En la Figura \ref{two_apps} se pueden ver ambas aplicaciones, la aplicación de escritorio y la de móvil, realizando una grabación. En el Anexo 2 se puede ver un manual completo y detallado del uso de la *Class Recorder*, donde se puede ver claramente los objetivos alcanzados.
+
+![Aplicación de *Class Recorder* en sus versión de escritorio y móvil de izquierda a derecha respectivamente, realizando una grabación](images/captures/capture_16.png){#two_apps}
 
 
 # Tecnologías, herramientas y metodologías
@@ -159,9 +153,9 @@ Antes de introducir las tecnologías que se han utilizado, es necesario comprend
 
 2. Lenguajes y frameworks utilizados para el desarrollo de la aplicación.
 
-3. Organización de Repositorio y tecnologías para automatización de flujo de trabajo y CI/CD.
+3. Organización del repositiorio de código y tecnologías para automatización de flujo de trabajo y CI/CD.
 
-4. Entorno de desarrollo y de integración continua completamente dockerizado.
+4. Entorno de desarrollo y de integración continua dockerizado.
 
 5. Tecnologías utilizadas para escribir esta memoria (Pandoc + Markdown)
 
@@ -227,11 +221,13 @@ Para esta aplicación necesitábamos ofrecer una API RESTful para realizar una a
 
 - Controladores Rest: Spring Boot ofrece la posibilidad de crear controladores Rest de una forma muy sencilla.
 
-![Java and Spring boot logo](images/java_spring_boot.png){#java_springboot_logo .class width=8cm}
+En la Figura \ref{java_springboot_logo} se encuentran los logotipos de Java y Spring Boot.
+
+![Java and Spring boot logo](images/java_spring_boot.png){#java_springboot_logo .class width=6cm}
 
 Pero al servidor Java hay que añadirle la parte central y más importante de nuestra aplicación: ffmpeg.
 
-Ffmpeg es una herramienta multiplataforma (posee binarios para cada plataforma) que nos permite convertir videos y audio de un formato a otro. Ffmpeg ofrece un CLI el cual utilizaremos en nuestra aplicación Java para realizar las grabaciones del escritorio, cortar los videos, juntar el audio del movil con el vídeo grabado en el pc, etc.
+Ffmpeg es una herramienta multiplataforma (posee binarios para cada plataforma) que nos permite convertir videos y audio de un formato a otro. Ffmpeg ofrece un CLI el cual utilizaremos en nuestra aplicación Java para realizar las grabaciones del escritorio, cortar los videos, juntar el audio del movil con el vídeo grabado en el pc, etc. En la Figura \ref{ffmpeg_logo}, se encuentra el logotipo de Ffmpeg.
 
 ![FFmpeg logo](images/FFmpeg.png){#ffmpeg_logo .class width=6cm}
 
@@ -247,7 +243,7 @@ Como estamos desarrollando un servidor RESTFul podemos crear dos proyectos SPA q
 
 En ambos proyectos utilizamos Angular como framework para el frontend (el cual utiliza TypeScript). ¿Por qué utilizar el framework Angular frente a otras opciones como React y Vue? En primer lugar, al ser un framework y no una librería, un framework tiene mucho más clara la construcción y organización de un proyecto. Además con TypeScript el código es mucho más mantenible debido a su tipado estático. Eso unido a la estructura de componentes y servicios que ofrece Angular, dan una base muy sólida para comenzar un proyecto que pueda crecer a largo plazo.
 
-Por otro lado, Ionic es un framework que nos permite crear aplicaciones híbridas nativas para móviles utilizando tecnologías web. Utilizando el framework de Angular y librerias que ofrece Ionic para utilizar elementos hardware del dispositivo móvil, podemos crear una aplicación móvil completa para la tarea que se quiere realizar. Ionic hace llamadas a las API's de cordova, que son un conjunto de librerías que permiten interactuar con el hardware móvil. Cordova ofrece una API javascript e Ionic encapsula este comportamiento mediante servicios que son fácilmente utilizables dentro de Ionic.
+Por otro lado, Ionic es un framework que nos permite crear aplicaciones híbridas nativas para móviles utilizando tecnologías web. Utilizando el framework de Angular y librerias que ofrece Ionic para utilizar elementos hardware del dispositivo móvil, podemos crear una aplicación móvil completa para la tarea que se quiere realizar. Ionic hace llamadas a las API's de cordova, que son un conjunto de librerías que permiten interactuar con el hardware móvil. Cordova ofrece una API javascript e Ionic encapsula este comportamiento mediante servicios que son fácilmente utilizables dentro de Ionic. En la Figura \ref{frontend_logos} se encuentran los logotipos de las 3 tecnologías mencionadas.
 
 ![De izquierda a derecha, logotipos de Cordova, Angular e Ionic](images/cordova_angular_ionic.png){#frontend_logos .class width=9cm}
 
@@ -257,7 +253,7 @@ Este proyecto podría considerarse que está utilizando una organización monore
 
 Para organizar nuestro proyecto he utilizado Git como control de versiones y GitHub como repositorio remoto.
 
-Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS, que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear y organizar dichas tareas repetitivas para poder ejecutarlas desde una terminal o poder automatizar los builds y la ejecución de test de una forma organizada y relativamente sencilla.
+Para gestionar las builds y los scripts de test, hemos utilizado gulp, una librería de NodeJS, que nos permite automatizar tareas repetitivas tales como copiar ficheros al hacer builds, compilar en diferentes entornos, minificación de código, logs, etc. Gulp nos permite crear y organizar dichas tareas repetitivas para poder ejecutarlas desde una terminal o poder automatizar los builds y la ejecución de test de una forma organizada y relativamente sencilla. En la Figura \ref{fig:gulp}, se puede ver el logotipo de Gulp.
 
 ![Logotipo de gulp](images/gulp.png){#fig:gulp .class width=1.5cm}
 
@@ -290,9 +286,9 @@ En el Anexo 1 se puede ver además de una guía de configuración para el entorn
 
 Como sistema de CI/CD hemos utilizado travis. El sistema de CI/CD podría perfectamente ejecutarse en travis sin Docker, pero para tener un mayor control de las versiones que utilizamos, las configuraciones del sistema y tener un sistema en el que desarrollar homogéneo, decidimos utilizar Docker. En la siguiente sección explicaremos en más detalle cómo está montado el sistema de CI/CD junto con el uso de Docker.
 
-## Entorno de desarrollo y de integración continua completamente dockerizado.{#ci_intro}
+## Entorno de desarrollo y de integración continua dockerizado.{#ci_intro}
 
-Al desarrollar este proyecto me encontré con ciertas problemáticas. Una de ellas es la tediosidad de configurar todo el entorno para ponerse a desarrollar, y más teniendo en cuenta la utilización de ffmpeg y la instalación de Android SDK para poder crear la aplicación de Ionic. En los momentos en los que desarrollaba esta aplicación, tenía a mi disposición varios ordenadores, y tenía que configurarlos todos para poder desarrollar o corregir un simple bug. Si tenía un ordenador en la oficina, ¿por qué tenía que llevarme el portátil?. Si tenía un problema con el sistema, tenía que reconfigurar todo el entorno, y quería poder tener un sistema universal para poder desarrollar en cualquier ordenador que tuviera a mano.
+Al desarrollar este proyecto me encontré con ciertas problemáticas. Una de ellas es la tediosa tarea de configurar todo el entorno para ponerse a desarrollar, y más teniendo en cuenta la utilización de ffmpeg y la instalación de Android SDK para poder crear la aplicación de Ionic. En los momentos en los que desarrollaba esta aplicación, tenía a mi disposición varios ordenadores, y tenía que configurarlos todos para poder desarrollar o corregir un simple bug. Si tenía un ordenador en la oficina, ¿por qué tenía que llevarme el portátil?. Si tenía un problema con el sistema, tenía que reconfigurar todo el entorno, y quería poder tener un sistema universal para poder desarrollar en cualquier ordenador que tuviera a mano.
 
 Para esto se me presentaron varias posibles soluciones:
 
@@ -316,7 +312,7 @@ La imagen docker comparte ciertos sockets de X11[@bib13] y de pulseaudio[@bib14]
 
 [^3]: Realizar desarrollo remoto con VSCode por ssh https://code.visualstudio.com/docs/remote/ssh
 
-De esta forma, podemos ponernos a desarrollar simplemente teniendo una máquina con ubuntu y docker instalado. En el Anexo 1 se puede ver como utilizar este entorno para desarrollar más detenidamente. Pero para demostrar la comodidad que puede suponer está configuración, estos son los comandos necesarios para ponerse a desarrollar en cualquier máquina con Ubuntu.
+De esta forma, podemos ponernos a desarrollar simplemente teniendo una máquina con ubuntu y docker instalado. En el Anexo 1 se puede ver más detenidamente cómo utilizar este entorno para desarrollar. Pero para demostrar la comodidad que puede suponer está configuración, estos son los comandos necesarios para ponerse a desarrollar en cualquier máquina con Ubuntu.
 
 ```
 git clone https://github.com/Class-Recorder/docker-class-recorder
@@ -324,7 +320,7 @@ cd docker-class-recorder/docker-runnables/crecorder-dev
 ./docker_run.sh
 ```
 
-Con estás instrucciones levantamos la infraestructura necesaria para desarrollar. Una vez están ejecutados los contenedores, el desarrolador debería ejecutar:
+Con estas instrucciones levantamos la infraestructura necesaria para desarrollar. Una vez están ejecutados los contenedores, el desarrollador debería ejecutar:
 
 ```
 docker exec -it crecorder-dev_teacher-pc-server_1 /bin/bash
@@ -407,13 +403,13 @@ Electron es una tecnología que nos permite empaquetar aplicaciones web como si 
 
 En la secciones anteriores hemos explicado las tecnologías que hemos utilizado y como hemos configurado el entorno de desarrollo, de CI y la metodología que estamos utilizando. En las siguientes secciones nos centraremos más en lo que es el desarrollo de la aplicación en si misma.
 
-Primero se hará una descripción de los requisitos funcionales y no funcionales, posteriormente se describirá de forma detallada la arquitectura y como se comunicarán los diferentes componentes de nuestra aplicación.
+Primero se describirán los requisitos funcionales y no funcionales, posteriormente se presentará de forma detallada la arquitectura y cómo se comunicarán los diferentes componentes de nuestra aplicación.
 
-Posteriormente se ahondará a nivel de código y de diseño como se han implementado las partes más complejas de la aplicación.
+Posteriormente se ahondará a nivel de código y de diseño, cómo se han implementado las partes más complejas de la aplicación.
 
 ## Requisitos
 
-Antes de comenzar las iteraciones y primeros prototipos del proyecto, es necesario crear una especificación de requisitos clara y concisa. Vamos a seguir algunas de las recomendaciones del estándar IEEE830[@bib6] para ello. En un desarrollo iterativo e incremental ágil debemos tener muy en cuenta que los requisitos puedan ser modificables con frecuencia.
+Antes de comenzar las iteraciones y primeros prototipos del proyecto, es necesario crear una especificación de requisitos clara y concisa. Vamos a seguir algunas de las recomendaciones del estándar IEEE830[@bib6] para ello. En un desarrollo iterativo e incremental ágil debemos tener muy en cuenta que los requisitos puedan ser modificados con frecuencia.
 
 ### Requisitos funcionales
 
@@ -431,7 +427,7 @@ Los requisitos consisten en una serie de comportamientos o módulos que deben se
 
 *Editar los cortes de los videos*: La aplicación deberá generar durante la grabación unos metadatos con los que poder editar posteriormente los cortes.
 
-La grabación se realizará de tal forma que cada pausa no parará la grabación del vídeo, si no que creará un metadato con la información del momento exacto en el que se realizó dicha pausa, para poder posteriormente editar el vídeo a través de una interfaz de usuario.
+La grabación se realizará de tal forma que cada pausa no parará la grabación del vídeo, sino que creará un metadato con la información del momento exacto en el que se realizó dicha pausa, para poder posteriormente editar el vídeo a través de una interfaz de usuario.
 
 **Requisito funcional 4**
 
@@ -457,7 +453,7 @@ Así mismo la aplicación móvil ofrecerá también la posibilidad de cambiar de
 
 **Requisito funcional 8**
 
-*Modificación de videos subidos*: Se deberá poder modificar ciertos campos del vídeo subido:
+*Modificación de videos publicados*: Se deberá poder modificar ciertos campos del vídeo subido:
 
 - Título.
 
@@ -499,13 +495,13 @@ Previamente a la implementación es necesario hacer un análisis de algunos de l
 
 4. Control de usuarios y gestión de cursos. (Requisito funcional 6, 7 y 8).
 
-5. Deben poder subirse los videos a una plataforma web. (Requisito funcional 4).
+5. Deben poder publicarse los videos a una plataforma web. (Requisito funcional 4).
 
 Con los 5 puntos podemos definir la arquitectura y además se puede ver como satisfacemos todos los requisitos.
 
 A continuación, vamos a ir creando nuestra arquitectura a partir de los puntos mencionados anteriormente.
 
-1. Para cumplir el punto 1 de la lista anterior, crearemos una aplicación web con su parte backend en Spring boot y Java; y su parte Frontend en Angular. Todo ello finalmente será empaquetado en un electron con ffmpeg y la JVM. Esta parte de la arquitectura se corresponde con el componente de color rojo de la Figura \ref{classrecarch}
+1. Para cumplir el punto 1 de la lista anterior, crearemos una aplicación web con su parte backend en Spring boot y Java; y su parte Frontend en Angular. Todo ello finalmente será empaquetado en un electron con ffmpeg y la JVM. Esta parte de la arquitectura se corresponde con el componente de color rojo de la Figura \ref{classrecarch}.
 
 2. Con respecto al punto 2, otra parte de la arquitectura se correspondería con una aplicación móvil desarrollada con Ionic. Esto se corresponde con el componente azul de la Figura \ref{classrecarch}
 
@@ -571,7 +567,7 @@ También necesitamos crear una clase que gestione las llamadas a la API de youtu
 
 ### Diagrama Entidad-Relación de los datos.
 
-Las siguientes entidades son utilizadas para realizar persistencia en la base de datos. Es necesario que nuestro programa sea multiusuario (para el caso de que en un futuro se pueda escalar), y que ademas gestione los cursos de cada profesor. No solo eso sino que deberá guardar también los videos de Youtube que se han guardado en la plataforma.
+Las siguientes entidades son utilizadas para realizar persistencia en la base de datos. Es necesario que nuestro programa sea multiusuario (para el caso de que en un futuro se pueda escalar), y que además gestione los cursos de cada profesor. No solo eso sino que deberá guardar también los videos de Youtube que se han guardado en la plataforma.
 
 El diagrama entidad relación es el de la Figura \ref{er_diagram} y son las siguientes entidades.
 
@@ -589,11 +585,11 @@ Los videos grabados sin subir a la plataforma de youtube, son representados por 
 
 ### Diagrama de secuencia de una grabación.{#diagram_record}
 
-En esta sección vamos a explicar dos posibles casos de uso en los que se puede utilizar esta aplicación y como se realiza esto secuencialmente para cada uno de los dos casos. Si el profesor quiere grabar el audio del micrófono del PC deberá comenzar la grabación desde el mismo PC, y del mismo modo si quiere grabar el escritorio del ordenador y grabar el audio desde el móvil deberá iniciar la grabación desde la aplicación móvil.
+En esta sección vamos a explicar dos posibles casos de uso en los que se puede utilizar *Class Recorder* y cómo se realiza esto secuencialmente para cada uno de los dos casos. Si el profesor quiere grabar el audio del micrófono del PC deberá comenzar la grabación desde el mismo PC, y del mismo modo si quiere grabar el escritorio del ordenador y grabar el audio desde el móvil deberá iniciar la grabación desde la aplicación móvil.
 
-El diagrama de secuencia del primer caso es el siguiente.
+El diagrama de secuencia del primer caso es el mostrado en la Figura \ref{seq_rec_pc}:
 
-![Diagrama de secuencia de grabación grabando desde PC](images/sequence_started_from_pc.png){#seq_rec_pc .class width=9cm}
+![Diagrama de secuencia de grabación grabando desde PC](images/sequence_started_from_pc.png){#seq_rec_pc .class width=8cm}
 
 Todas las peticiones se realizan a través de WebSocket. Tanto la aplicación Frontend de Angular como la aplicación Ionic  se conectan al servidor de Spring boot y reciben el estado de la grabación, pudiéndose controlar desde ambos dispositivos al mismo tiempo.
 
@@ -627,10 +623,7 @@ Por otro lado en el segundo caso, si el usuario quiere grabar el audio del móvi
 
 \pagebreak
 
-![Diagrama de secuencia de grabación desde móvil](images/sequence_started_from_smartphone.png){#seq_smartphone .class width=8.5cm}
-
-&nbsp;
-\newpage
+![Diagrama de secuencia de grabación desde móvil](images/sequence_started_from_smartphone.png){#seq_smartphone .class width=8cm}
 
 ## Diseño e implementación {#dis_e_imp}
 
@@ -638,7 +631,7 @@ En esta sección se explicará con más detalle como se han implementado los mó
 
 ### Implementación Wrapper Ffmpeg
 
-Para simplificar el proceso de grabación, se ha aplicado el principio de responsabilidad única, creando para cada sistema operativo, una clase muy simple que ejecuta comandos Ffmpeg a partir de unos parámetros y la clase `FfmpegWrapper.java` controla el proceso de grabación de forma agnóstica al sistema. Para entender como funciona el Wrapper de Ffmpeg tenemos que echar un vistazo al constructor de la clase `FfmpegWrapper.java`.
+Para simplificar el proceso de grabación, se ha aplicado el principio de responsabilidad única, creando para cada sistema operativo, una clase muy simple que ejecuta comandos Ffmpeg a partir de unos parámetros y la clase `FfmpegWrapper` controla el proceso de grabación de forma agnóstica al sistema. Para entender como funciona el Wrapper de Ffmpeg tenemos que echar un vistazo al constructor de la clase `FfmpegWrapper`.
 
 ```{.java .numberLines}
 public FfmpegWrapper(Path ffmpegOutput,
@@ -670,7 +663,7 @@ public FfmpegWrapper(Path ffmpegOutput,
 }
 ```
 
-Como se puede observar en las líneas 9 y 10 cogemos las dimensiones de la pantalla (independientemente del sistema operativo, Java ofrece un método multiplataforma para ello), y en las lineas 19-26 instanciamos el objeto `ICommand` correspondiente para el sistema operativo en ejecución.
+Como se puede observar en las líneas 9 y 10, cogemos las dimensiones de la pantalla (independientemente del sistema operativo, Java ofrece un método multiplataforma para ello), y en las lineas 19-26 instanciamos el objeto `ICommand` correspondiente para el sistema operativo en ejecución.
 
 Instanciar esta clase es realmente sencillo. Solo es necesario introducir las siguientes instrucciones:
 
@@ -689,7 +682,7 @@ ffmpeg.startRecordingVideoAndAudio();
 
 Como vemos, solo necesitamos  configurar una serie de parámetros al principio, especificar el formato de audio y de vídeo que se va a utilizar, el formato de contenedor, el framerate, el directorio donde guardar los videos y el nombre del vídeo. Posteriormente podríamos ejecutar la última instrucción y ffmpeg comenzaría a grabar.
 
-¿Cuales son los comandos que lanza cada método? Las implementaciones de los comandos concretos se encuentran en las clases: `ICommandWindows.java` y `ICommandLinux.java`  Vamos a explicar los tres comandos más importantes implementados de la clase `ICommandLinux.java`
+¿Cuales son los comandos que lanza cada método? Las implementaciones de los comandos concretos se encuentran en las clases: `ICommandWindows` y `ICommandLinux.java`  Vamos a explicar los tres comandos más importantes implementados de la clase `ICommandLinux`
 
 **Grabar vídeo con audio**: Se utiliza el método `executeFfmpegVideoAndSound` que implementa el siguiente comando para los videos `mkv`. Este comando concreto es un ejemplo de un vídeo grabado desde la aplicación en Linux:
 
@@ -762,7 +755,7 @@ A partir de un fichero de texto que se habrá creado con anterioridad en  una ca
 
 ### Implementación módulo Youtube
 
-Para implementar la subida a videos de youtube se ha decidido utilizar una librería que haga las llamadas http pertintentes, ya que para esta tarea especifica, sí existían librerías apropiadas para subir vídeos a Youtube. La librería que hemos utilizado ha sido las librerías de youtube de Google.
+Para implementar la subida a vídeos de youtube se ha decidido utilizar una librería que haga las llamadas http pertintentes, ya que para esta tarea especifica, sí existían librerías apropiadas para subir vídeos a Youtube. La librería que hemos utilizado ha sido las librerías de youtube de Google.
 
 Así pues hemos seguido un ejemplo de la api[^6] y lo hemos adaptado a nuestras necesidades. Esta api necesita de una clave secreta de aplicación que hemos generado a través de las herramientas de desarrollo de Google. Al subir un vídeo generamos una url que el usuario visita para dar permisos a nuestra a nuestra api de Youtube para poder subir videos a la cuenta del usuario de Google.
 
@@ -949,7 +942,7 @@ Uno de las atributos más importantes de esta clase que no hemos mencionado es e
     session.sendMessage(new TextMessage(messageToSend));
   }
 ```
-Este método es ejecutado cada vez que un cliente solicita una sesión de WebSocket en la ruta `/recordpc`. En la ejecución de este método guardamos en un Array dicha sesión para que por cada evento que suceda, enviarle información del estado de la grabación a todos los clientes conectados.
+Este método es ejecutado cada vez que un cliente solicita una sesión de WebSocket en la ruta `/recordpc`. En la ejecución de este método guardamos en un array dicha sesión para que por cada evento que suceda, enviarle información del estado de la grabación a todos los clientes conectados.
 
 Posteriormente definimos el método que controlará la grabación en función de los mensajes por WebSockets que reciba:
 
@@ -1069,7 +1062,7 @@ export class WebSocketRecord {
 
 De aquí es importante mencionar dos partes. Por un lado el método `sendMessage(msg: WebSocketRecordMessage)` el cual nos va a permitir enviar los mensajes necesarios para controlar las grabaciones. También hay que mencionar el atributo público `messages`, el cual es un Observable que está conectado al WebSocket. Cualquier componente de Angular que se suscriba a ese atributo recibirá los mensajes de respuesta del servidor, con los cuales notificamos visualmente al usuario del estado de la grabación.
 
-## Testing
+## Pruebas automáticas
 
 En esta sección explicaremos en detalle las pruebas que se han realizado, manuales y automatizadas, y los pasos que se dan en cada commit subido a Github.
 
@@ -1110,7 +1103,7 @@ El sistema de travis se ejecuta por commit y los pasos en concreto del sistema d
 
 >>
 
-La salida de los logs de los test deben mostrar algo como lo mostrado en la Figura \ref{travis_capture}. Los test que se han realizado son de tipo e2e en el browser, con *Protactor*. Aunque por el momento solo he sido capaz de automatizar los test del frontend a nivel de grabaciones. Las pruebas de móvil son pruebas manuales.
+La salida de los logs de los test deben mostrar algo como lo mostrado en la Figura \ref{travis_capture}. Los test que se han realizado son de tipo e2e en el browser, con *Protactor*. Aunque por el momento solo se han automatizado los test del frontend a nivel de grabaciones. Las pruebas de móvil son pruebas manuales. En la Figura \ref{travis_capture} se puede ver una captura de los logs en Travis de los test e2e.
 
 
 ![Logs test e2e desde Travis](images/travis_capture.png){#travis_capture .class width=10cm}
@@ -1137,17 +1130,17 @@ Como la imagen docker que se ejecuta en Travis ya tiene incorporado una version 
 
 # Conclusiones y trabajos futuros
 
-Observando el presente trabajo en retrospectiva, se han conseguido abordar todos los objetivos planteados en un principio. Se ha abordado el problema de optimizar el tiempo empleado para grabar las clases y hemos creado un software que, siguiendo un flujo de trabajo, es capaz de grabar videos sin necesidad de editarlos.
+Observando el presente trabajo en retrospectiva, se han conseguido abordar todos los objetivos planteados en un principio. Se ha abordado el problema de optimizar el tiempo empleado para grabar las clases y hemos creado un software que, siguiendo un flujo de trabajo, es capaz de grabar vídeos sin necesidad de editarlos.
 
 ## Lecciones aprendidas
 
 Algunas lecciones aprendidas han sido resultado de las buenas prácticas aplicadas en el desarrollo de este trabajo:
 
-- Feedback continuo con el tutor de proyecto.
+- Feedback continuo con el tutor del proyecto.
 
 - Modularizar y hacer código desacoplado es siempre una buena práctica, pero requiere de tiempo. Los dos módulos creados para subir a Youtube los vídeos y para realizar las grabaciones pueden ser utilizados en otros proyectos java. No están preparados como librerías java independientes pero es un código fácilmente reutilizable.
 
-- Los test e2e cubren mucha lógica de negocio y son importantes para detectar errores. Esta aplicación solo cuenta con test e2e lo cual facilita la detección de bugs en gran parte de la aplicación. Sin embargo se han echado en falta test de integración y unitarios para, además de detectar los errores, identificar en que partes la aplicación está fallando.
+- Los test e2e cubren mucha lógica de negocio y son importantes para detectar errores. Esta aplicación solo cuenta con tests e2e lo cual facilita la detección de bugs en gran parte de la aplicación. Sin embargo se han echado en falta test de integración y unitarios para, además de detectar los errores, identificar en que partes la aplicación está fallando.
 
 - No es nada trivial testear sistemas que producen, procesan o graban vídeo y audio. Ha sido bastante complicado preparar el sistema de CI para testear la grabación, pero al final se ha conseguido realizar con éxito.
 
@@ -1330,7 +1323,7 @@ Hace una build completa de la aplicación
 
 ### 1. Iniciar Class Recorder y crear cuenta local. {-}
 
-En primer lugar deberá tener instalada la última version de Class-Recorder, que puede descargar aquí: [https://github.com/Class-Recorder/class-recorder/releases](https://github.com/Class-Recorder/class-recorder/releases). Necesitará ambas versiones, la version de escritorio y la versión para android.
+En primer lugar deberá tener instalada la última version de Class-Recorder, que puede descargar aquí: `https://github.com/Class-Recorder/class-recorder/releases`. Necesitará ambas versiones, la version de escritorio y la versión para android.
 
 Una vez instalada aparecerá una imagen como la de la Figura \ref{capt_1}:
 

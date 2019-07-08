@@ -1,4 +1,4 @@
-title Secuencia de grabación des
+title Secuencia de grabación desde smartphone
 Angular Frontend->Spring Boot Server:[WS] connect
 Spring Boot Server->Angular Frontend: [WS] Connected
 Ionic App->Spring Boot Server:[WS] connect
@@ -33,16 +33,16 @@ Ionic App->Spring Boot Server:[WS] Stop
 parallel
 Spring Boot Server->Angular Frontend: [WS] Stopped
 Spring Boot Server->Ionic App: [WS] Stopped
-end
 deactivate Spring Boot Server
+end
 parallel off
 group #2f2e7b Send Audio from mobile #white
 Ionic App->Spring Boot Server: [http Multipart] Send Audio
 activate Ionic App
 space 8
-Spring Boot Server->Ionic App: [http] Sended
-end
+Spring Boot Server->Ionic App: [http] Sent
 deactivate Ionic App
+end
 group #2f2e7b Merge video and Audio on Server #white
 Ionic App->Spring Boot Server: [http] Merge Video And audio
 activate Spring Boot Server
